@@ -1,3 +1,10 @@
+@* tala om för vår vy vad för data som ska tas emot när vi använder oss av en databärande klass i Model *@
+@model WestcoastEducation.Web.Models.Classroom
+
 <article class="page">
-    <h1 class="page-title">Detaljer</h1>
+    <h1 class="page-title">Mer info om vald utbildning</h1>
+
+     @* Här använder vi riktiga objekt ifrån våra klasser för att skicka data istället för ViewData *@
+    <h2>Kurs namn: @Model.Name</h2>
+    <h4>Innehåll: @Model.Content</h4>
 </article>
