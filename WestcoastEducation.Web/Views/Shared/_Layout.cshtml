@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/507df99975.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/colors.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/utilities.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navigation.css" asp-append-version="true" />
+    @* landing-page.css är unik för startsidan och därför vill jag inte lägga den i _Layout direkt *@
+    @RenderSection("styles", false)
+
+    <link rel="stylesheet" href="~/css/styles.css">
+
+    <title>@ViewBag.PageTitle 📚 Westcoast Education</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <h1 class="logo">
+                <span class="text-primary">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Westcoast
+                </span>
+                Education
+            </h1>
+            <ul>
+                <li><a asp-action="Index" asp-controller="Home">Start</a></li>
+                <li><a asp-action="Index" asp-controller="Classroom">Kurser</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="alert-container">
+            @await Html.PartialAsync("_OnDemandOffer")
+
+            @RenderBody()
+        </section>
+    </main>
+</body>
+
+</html>
