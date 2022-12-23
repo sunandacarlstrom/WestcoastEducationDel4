@@ -8,7 +8,6 @@
     <script src="https://kit.fontawesome.com/507df99975.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/css/colors.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/navigation.css" asp-append-version="true" />
-    @* landing-page.css är unik för startsidan *@
     @RenderSection("styles", false)
     <link rel="stylesheet" href="~/css/styles.css">
     <title>@ViewBag.PageTitle Westcoast Education</title>
@@ -34,7 +33,7 @@
         <section class="offer-container">
             @await Html.PartialAsync("_OnDemandOffer")
         </section>
-            @RenderBody()
+        @RenderBody()
     </main>
 </body>
 

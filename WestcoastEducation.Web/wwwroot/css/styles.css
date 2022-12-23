@@ -30,70 +30,38 @@ ul {
     list-style: none;
 }
 
-p {
-    margin: 1rem 0;
-}
-
 .button {
-    background-color: var(--primary-background-color);
+    background-color: var(--light-color);
     padding: 0.8rem;
     border-radius: 10px;
     box-shadow: 8px 5px 10px var(--dark-color);
     border: 2px solid var(--primary-text-color);
 }
 
+.button a:active {
+    color: var(--secondary-color);
+}
+
 .button:hover {
     background-color: var(--primary-color);
+}
+
+.course-container a {
+    color: var(--dark-color);
+    text-decoration: underline;
+    font-weight: 800;
+}
+
+.course-container a:active {
+    color: var(--secondary-color);
 }
 
 .course-container {
     text-align: center;
 }
 
-.page {
-    padding: 5rem;
-}
-
-.page-title {
-    text-align: center;
-    color: var(--primary-text-color);
-    font-weight: 400;
-    font-size: 2rem;
-    padding: 2rem 4rem;
-}
-
-.background-image {
-    height: 100vh;
-    width: 100vw;
-    background: url("img/landing-page-WE.jpg") no-repeat center center/cover;
-    position: absolute;
-    opacity: 0.6;
-    left: 0px;
-    top: 0px;
-    z-index: -1;
-}
-
-/* Offer */
-
-.offer-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary-color);
-    height: 8vh;
-    width: 100vw;
-    color: var(--dark-color);
-}
-
-.offer {
-    padding: 10px;
-    height: 8vh;
-}
-
-/* Icons */
-
 .logo-text {
-    color: var(--primary-text-color);
+    color: var(--primary-color);
 }
 
 .icons {
@@ -102,13 +70,37 @@ p {
 
 .icons h3 {
     font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 .icons i {
     background-color: var(--primary-color);
     color: var(--light-color);
     padding: 1rem;
-    border-radius: 50%;
-    margin-bottom: 1rem;
+}
+
+.page {
+    padding: 4rem;
+}
+
+.page-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: 400;
+    font-size: 2rem;
+    padding: 2rem 4rem;
+}
+
+.offer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-border-color);
+    height: 8vh;
+    width: 100vw;
+    color: var(--dark-color);
+}
+
+.offer {
+    padding: 14px;
+    height: 8vh;
 }

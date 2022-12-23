@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* position: fixed; */
     top: 0px;
     background-color: var(--dark-color);
     color: #fff;
@@ -12,13 +11,13 @@
     z-index: 1;
 }
 
-.navbar a:hover {
-    border-bottom: solid 2px var(--primary-color);
-}
-
 .navbar a {
     color: var(--light-color);
     margin: 0 0.8rem;
+}
+
+.navbar a:hover {
+    border-bottom: solid 2px var(--primary-color);
 }
 
 .navbar ul {
