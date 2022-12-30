@@ -1,4 +1,4 @@
-# WestcoastEducationStartsida
+# Startsida för Westcoast Education
 
 Skapat en startsida för min första mvc-applikation. Ett fiktivt projekt under namnet Westcoast Education.
 
