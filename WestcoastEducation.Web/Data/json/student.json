@@ -1,0 +1,12 @@
+[
+    {
+        "studentId": 12345,
+        "email": "hej@hej.com",
+        "firstName": "Adam",
+        "lastName": "Svensson",
+        "socialSecurityNumber": "19920102",
+        "streetAddress": "Herkulesvägen 22",
+        "postalCode": "553 43",
+        "phone": "0725446694"
+    }
+]

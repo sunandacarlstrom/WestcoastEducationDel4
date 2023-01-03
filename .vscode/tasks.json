@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/WestcoastEducationStartsida.Web/WestcoastEducationStartsida.Web.csproj",
+                "${workspaceFolder}/WestcoastEducation.Web/WestcoastEducation.Web.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/WestcoastEducationStartsida.Web/WestcoastEducationStartsida.Web.csproj",
+                "${workspaceFolder}/WestcoastEducation.Web/WestcoastEducation.Web.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/WestcoastEducationStartsida.Web/WestcoastEducationStartsida.Web.csproj"
+                "${workspaceFolder}/WestcoastEducation.Web/WestcoastEducation.Web.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

@@ -1,0 +1,29 @@
+@using WestcoastEducation.Web.Models
+@model IList<WestcoastEducation.Web.Models.User>
+
+@{
+    ViewBag.PageTitle = "User Account";
+}
+
+<article class="page">
+    <h1 class="page-title">Användare</h1>
+    <section class="course-container">
+        @foreach (var user in Model)
+        {
+            if (user.GetType() == typeof(Teacher))
+            {
+                <div>
+                    <a asp-action="details" asp-route-userId=@user.UserId>Lärare @user.CompleteName</a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <a asp-action="details" asp-route-userId=@user.UserId>Student @user.CompleteName</a>
+                </div>
+            }
+        }
+    </section>
+    <h1 class="page-title">Aktuella kurser test</h1>
+    <h1 class="page-title">Avslutade kurser test</h1>
+</article>

@@ -2,14 +2,13 @@ namespace WestcoastEducation.Web.Models;
 
 public abstract class User
 {
-    public int UserId { get; init; }
+    public int UserId { get; set; }
+    public string Email { get; set; } = ""; 
     public string FirstName { get; set; } = "";
     public string LastName { get; set; } = "";
     public string CompleteName { get { return FirstName + " " + LastName; } }
-    public int SocialSecurityNumber { get; set; }
+    public string SocialSecurityNumber { get; set; } = "";
     public string StreetAddress { get; set; } = "";
     public string PostalCode { get; set; } = "";
-    public int Phone { get; set; }
-
-    public Email? Email { get; set; }
+    public string Phone { get; set; } = ""; 
 }

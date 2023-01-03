@@ -5,8 +5,10 @@ namespace WestcoastEducation.Web.Data
 {
     public class WestcoastEducationContext : DbContext
     {
-        //TODO: Lägg till flera klasser här för att mappa till min databas (skapa kopplingen mellan min databas och mina klasser)
+        // Skapar kopplingen mellan min databas och mina klasser
         public DbSet<Classroom> Classrooms => Set<Classroom>();
+        public DbSet<Student> Students => Set<Student>();
+        public DbSet<Teacher> Teachers => Set<Teacher>();
 
         public WestcoastEducationContext(DbContextOptions options) : base(options) { }
     }

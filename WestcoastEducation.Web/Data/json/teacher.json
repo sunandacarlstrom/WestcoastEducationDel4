@@ -1,0 +1,12 @@
+[
+    {
+        "teacherId": 67891,
+        "email": "hej@hej.com",
+        "firstName": "Michael",
+        "lastName": "Persson",
+        "socialSecurityNumber": "1956-01-02",
+        "streetAddress": "Värnamovägen 1c",
+        "postalCode": "553 43",
+        "phone": "0725446698"
+    }
+]
