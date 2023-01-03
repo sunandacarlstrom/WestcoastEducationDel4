@@ -1,0 +1,50 @@
+[
+    {
+        "courseId": 123,
+        "name": "Webbapplikation MVP",
+        "title": "Webbapplikation MVP",
+        "content": "Grunderna i HTML, CSS och JavaScript",
+        "avgGrade": 2,
+        "start": "2022-09-01",
+        "end": "2022-10-01", 
+        "schedule": "",
+        "isOnDistance": false,
+        "teacherId": 1
+    },
+    {
+        "courseId": 123,
+        "name": "Objektorienterad programmering med C#",
+        "title": "Objektorienterad programmering med C#",
+        "content": "Grunderna i OOP och C#",
+        "avgGrade": 2,
+        "start": "2022-09-01",
+        "end": "2022-10-01", 
+        "schedule": "",
+        "isOnDistance": false,
+        "teacherId": 2
+    },
+    {
+        "courseId": 123,
+        "name": "Dynamiska Webbsystem 1",
+        "title": "Dynamiska Webbsystem 1",
+        "content": "Grunderna i MVC med TDD",
+        "avgGrade": 2,
+        "start": "2022-09-01",
+        "end": "2022-10-01", 
+        "schedule": "",
+        "isOnDistance": false,
+        "teacherId": 3
+    },
+    {
+        "courseId": 123,
+        "name": "Dynamiska Webbsystem 2",
+        "title": "Dynamiska Webbsystem 2",
+        "content": "Fortsättning i MVC med TDD",
+        "avgGrade": 5,
+        "start": "2022-09-01",
+        "end": "2022-10-01", 
+        "schedule": "",
+        "isOnDistance": false,
+        "teacherId": 3
+    }
+]

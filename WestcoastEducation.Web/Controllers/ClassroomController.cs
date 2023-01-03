@@ -9,9 +9,9 @@ public class ClassroomController : Controller
     public IActionResult Index()
     {
         var classroom = new List<Classroom>{
-            new Classroom(Guid.NewGuid(), false) { Name = "Webbapplikation MVP", Content = "Grunderna i HTML, CSS och JavaScript"},
-            new Classroom(Guid.NewGuid(), false) { Name = "Objektorienterad programmering med C#", Content = "Grunderna i OOP och C#"},
-            new Classroom(Guid.NewGuid(), false) { Name = "Dynamiska Webbsystem 1", Content = "Grunderna i MVC med TDD"}
+            new Classroom() { Name = "Webbapplikation MVP", Content = "Grunderna i HTML, CSS och JavaScript"},
+            new Classroom() { Name = "Objektorienterad programmering med C#", Content = "Grunderna i OOP och C#"},
+            new Classroom() { Name = "Dynamiska Webbsystem 1", Content = "Grunderna i MVC med TDD"}
             };
 
         return View("Index", classroom);
@@ -20,7 +20,7 @@ public class ClassroomController : Controller
     [Route("details/{courseId}")]
     public IActionResult Details(int courseId)
     {
-        var foundClassroom = new Classroom(Guid.NewGuid(), false)
+        var foundClassroom = new Classroom()
         {
             Name = "Webbapplikation MVP",
             Content = "Grunderna i HTML, CSS och JavaScript"

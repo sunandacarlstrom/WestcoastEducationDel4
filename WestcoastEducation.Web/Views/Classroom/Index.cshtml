@@ -10,7 +10,7 @@
         @foreach (var classroom in Model)
         {
             <div>
-                <a asp-action="details" asp-route-courseId=@classroom.CourseId>@classroom.Name - @classroom.Content</a>
+                <a asp-action="details" asp-route-classroomId=@classroom.ClassroomId>@classroom.Name - @classroom.Content</a>
             </div>
         }
     </section>
