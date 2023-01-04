@@ -5,18 +5,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/507df99975.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/colors-admin.css">
+    <link rel="stylesheet" href="~/css/navigation-admin.css">
+    <link rel="stylesheet" href="~/css/tables.css">
     <title>Westcoast Education</title>
 </head>
 
 <body>
     <header>
-        <nav>
-            <h1><a asp-action="Index" asp-controller="Home">Westcoast Education</a></h1>
+        <nav class="navbar">
+            <h1 class="logo">
+                <span class="logo-text">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Westcoast
+                </span>
+                Education
+            </h1>
             <ul>
                 <li><a asp-action="Index" asp-controller="Admin">Start</a></li>
                 <li><a asp-action="Index" asp-controller="ClassroomAdmin">Kurser</a></li>
                 <li><a asp-action="Index" asp-controller="UserAdmin">Användare</a></li>
-                <li><a asp-action="Index" asp-controller="Home">Tillbaka</a></li>
+                <li><a asp-action="Index" asp-controller="Home"><i class="fa-solid fa-house"></i></a></li>
             </ul>
         </nav>
     </header>
