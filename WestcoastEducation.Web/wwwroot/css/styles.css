@@ -9,17 +9,14 @@
 body {
     font-family: "Roboto Mono", monospace;
     background: var(--primary-background-color);
-    line-height: 1.6;
 }
 
 h1 {
     font-weight: 1200;
-    line-height: 1.8;
 }
 
 h2 {
     font-weight: 400;
-    line-height: 1.2;
 }
 
 a {
@@ -30,19 +27,36 @@ ul {
     list-style: none;
 }
 
-.button {
+button {
     background-color: var(--light-color);
-    padding: 0.8rem;
-    border-radius: 10px;
-    box-shadow: 8px 5px 10px var(--dark-color);
-    border: 2px solid var(--primary-text-color);
+    padding: 0.4rem;
+    border-radius: 1px;
+    box-shadow: 5px 5px 10px var(--dark-color);
+    border: 2px solid var(--primary-border-color);
+    margin-top: 15px;
 }
 
-.button a:active {
+button a:active {
     color: var(--secondary-color);
 }
 
-.button:hover {
+button:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-front-page {
+    background-color: var(--light-color);
+    padding: 0.6rem;
+    border-radius: 4px;
+    box-shadow: 8px 5px 10px var(--dark-color);
+    border: 2px solid var(--primary-border-color);
+}
+
+.btn-front-page:active {
+    color: var(--secondary-color);
+}
+
+.btn-front-page:hover {
     background-color: var(--primary-color);
 }
 
@@ -64,28 +78,13 @@ ul {
     color: var(--primary-color);
 }
 
-.icons {
-    padding: 2rem;
-}
-
-.icons h3 {
-    font-weight: bold;
-}
-
-.icons i {
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    padding: 1rem;
-}
-
 .page {
-    padding: 4rem;
+    padding: 6rem;
 }
 
 .page-title {
-    text-align: center;
     color: var(--primary-color);
-    font-weight: 400;
+    font-weight: 800;
     font-size: 2rem;
     padding: 2rem 4rem;
 }

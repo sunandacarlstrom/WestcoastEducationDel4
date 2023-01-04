@@ -19,9 +19,10 @@ public class ClassroomController : Controller
         return View("Index", classrooms);
     }
 
-    [Route("details/{courseId}")]
-    public IActionResult Details(int courseId)
+    [Route("details/{classroomId}")]
+    public IActionResult Details(int classroomId)
     {
+
         return View("Details");
     }
 }

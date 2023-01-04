@@ -5,7 +5,7 @@
 }
 
 <section class="page">
-    <h1 class="page-title">Lägg till bil</h1>
+    <h1 class="page-title">Lägg till kurs</h1>
 
     <form class="shadow" asp-action="create" asp-controller="ClassroomAdmin" method="post">
 
@@ -28,11 +28,13 @@
 
         <div class="form-control">
             <div class="buttons-container">
-                <button type="Submit" class="btn btn-primary">
+                <button type="Submit" class="btn-submit">
                     <i class="fa-sharp fa-solid fa-floppy-disk"></i> Spara
                 </button>
-                <a asp-action="Index" asp-controller="ClassroomAdmin" class="btn btn-warning">
-                    <i class="fa-solid fa-arrow-left"></i> Avbyt</a>
+                <button class="btn-cancel">
+                    <a asp-action="Index" asp-controller="ClassroomAdmin">
+                        <i class="fa-solid fa-arrow-left"></i> Avbryt</a>
+                </button>
             </div>
 
         </div>
