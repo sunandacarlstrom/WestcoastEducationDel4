@@ -1,0 +1,40 @@
+@model WestcoastEducation.Web.Models.Classroom
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<section class="page">
+    <h1 class="page-title">Lägg till bil</h1>
+
+    <form class="shadow" asp-action="create" asp-controller="ClassroomAdmin" method="post">
+
+        <div class="form-control">
+            <label for="">Kurstitel</label>
+            <input asp-for="Title" />
+        </div>
+        <div class="form-control">
+            <label for="">Kursnamn</label>
+            <input asp-for="Name" />
+        </div>
+        <div class="form-control">
+            <label for="">Startdatum</label>
+            <input asp-for="Start" type="date" value="" />
+        </div>
+        <div class="form-control">
+            <label for="">Slutdatum</label>
+            <input asp-for="End" type="date" value="" />
+        </div>
+
+        <div class="form-control">
+            <div class="buttons-container">
+                <button type="Submit" class="btn btn-primary">
+                    <i class="fa-sharp fa-solid fa-floppy-disk"></i> Spara
+                </button>
+                <a asp-action="Index" asp-controller="ClassroomAdmin" class="btn btn-warning">
+                    <i class="fa-solid fa-arrow-left"></i> Avbyt</a>
+            </div>
+
+        </div>
+    </form>
+</section>
