@@ -1,12 +1,15 @@
 @using WestcoastEducation.Web.Models
+
 @model IList<WestcoastEducation.Web.Models.User>
 
 @{
     ViewBag.PageTitle = "User Account";
+    Layout = "_LayoutAdmin";
 }
 
 <article class="page">
-    <h1 class="page-title">Användare</h1>
+    <h2 class="page-title">Användare</h2>
+    <h3 class="page-title">Lärare</h3>
     <section class="course-container">
         @foreach (var user in Model)
         {
@@ -16,7 +19,13 @@
                     <a asp-action="details" asp-route-userId=@user.UserId>Lärare @user.CompleteName</a>
                 </div>
             }
-            else
+        }
+    </section>
+    <h3 class="page-title">Studenter</h3>
+        <section class="course-container">
+        @foreach (var user in Model)
+        {
+            if (user.GetType() == typeof(Student))
             {
                 <div>
                     <a asp-action="details" asp-route-userId=@user.UserId>Student @user.CompleteName</a>
@@ -24,6 +33,5 @@
             }
         }
     </section>
-    <h1 class="page-title">Aktuella kurser test</h1>
-    <h1 class="page-title">Avslutade kurser test</h1>
+
 </article>
