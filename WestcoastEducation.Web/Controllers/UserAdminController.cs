@@ -5,11 +5,11 @@ using WestcoastEducation.Web.Models;
 
 namespace WestcoastEducation.Web.Controllers;
 
-[Route("user")]
-public class UserController : Controller
+[Route("useradmin")]
+public class UserAdminController : Controller
 {
     private readonly WestcoastEducationContext _context;
-    public UserController(WestcoastEducationContext context)
+    public UserAdminController(WestcoastEducationContext context)
     {
         _context = context;
     }

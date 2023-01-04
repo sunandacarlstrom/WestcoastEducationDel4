@@ -11,7 +11,7 @@ using WestcoastEducation.Web.Data;
 namespace WestcoastEducation.Web.Data.Migrations
 {
     [DbContext(typeof(WestcoastEducationContext))]
-    [Migration("20230103183858_InitialCreate")]
+    [Migration("20230104091624_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

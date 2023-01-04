@@ -8,5 +8,35 @@
         "streetAddress": "Herkulesvägen 22",
         "postalCode": "553 43",
         "phone": "0725446694"
+    },
+    {
+        "studentId": 85478,
+        "email": "hej@då.com",
+        "firstName": "Sunanda",
+        "lastName": "Carlström",
+        "socialSecurityNumber": "19951118",
+        "streetAddress": "Sjöbogatan 19",
+        "postalCode": "553 33",
+        "phone": "0732554405"
+    },
+    {
+        "studentId": 265458,
+        "email": "hej@svejs.com",
+        "firstName": "Fredrik",
+        "lastName": "Johansson",
+        "socialSecurityNumber": "19940514",
+        "streetAddress": "Drottninggatan 22",
+        "postalCode": "553 43",
+        "phone": "0725447894"
+    },
+    {
+        "studentId": 658978,
+        "email": "hej@tjena.com",
+        "firstName": "Marianne",
+        "lastName": "Kvist",
+        "socialSecurityNumber": "19891211",
+        "streetAddress": "Grännavägen 132",
+        "postalCode": "553 43",
+        "phone": "0725447894"
     }
 ]
