@@ -1,3 +1,5 @@
+@model IList<WestcoastEducation.Web.Models.Classroom>
+
 @{
     ViewBag.PageTitle = "User Account";
     Layout = "_LayoutAdmin";
@@ -5,4 +7,51 @@
 
 <section class="page">
     <h1>Utbildnings administrering</h1>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>KursID</th>
+                <th>Titel</th>
+                <th>Kursnamn</th>
+                <th>Startdatum</th>
+                <th>Kurslängd</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var classroom in Model)
+            {
+                <tr>
+                    <td class="edit-icon">
+                        <a asp-action="Edit" asp-controller="ClassroomAdmin" asp-route-classroomId=@classroom.ClassroomId>
+                            <i class="fa-regular fa-pen-to-square"></i></a>
+                    </td>
+
+                    <td>@classroom.ClassroomId</td>
+                    <td>@classroom.Title</td>
+                    <td>@classroom.Name</td>
+                    <td>@classroom.Start</td>
+                    <td>@classroom.Length</td>
+
+                    <td class="delete-icon">
+                        <a asp-action="Delete" asp-controller="ClassroomAdmin" asp-route-classroomId=@classroom.ClassroomId>
+                            <i class="fa-solid fa-trash-can"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tfoot>
+
+    </table>
 </section>
