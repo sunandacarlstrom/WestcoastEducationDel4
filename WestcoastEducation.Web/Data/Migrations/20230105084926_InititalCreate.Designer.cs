@@ -11,8 +11,8 @@ using WestcoastEducation.Web.Data;
 namespace WestcoastEducation.Web.Data.Migrations
 {
     [DbContext(typeof(WestcoastEducationContext))]
-    [Migration("20230104091624_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230105084926_InititalCreate")]
+    partial class InititalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace WestcoastEducation.Web.Data.Migrations
 
             modelBuilder.Entity("WestcoastEducation.Web.Models.Student", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -96,17 +96,14 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("StudentId");
+                    b.HasKey("UserId");
 
                     b.ToTable("Students");
                 });
 
             modelBuilder.Entity("WestcoastEducation.Web.Models.Teacher", b =>
                 {
-                    b.Property<int>("TeacherId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -138,10 +135,7 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("TeacherId");
+                    b.HasKey("UserId");
 
                     b.ToTable("Teachers");
                 });

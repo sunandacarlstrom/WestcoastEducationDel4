@@ -1,10 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace WestcoastEducation.Web.Models;
 
 public class Classroom
 {
+    [Key]
     public int ClassroomId { get; set; }
     public string Name { get; set; } = "";
-    public string Title { get; set; } = ""; 
+    public string Title { get; set; } = "";
     public string Content { get; set; } = "";
     public double AvgGrade { get; set; }
     public DateTime Start { get; set; }

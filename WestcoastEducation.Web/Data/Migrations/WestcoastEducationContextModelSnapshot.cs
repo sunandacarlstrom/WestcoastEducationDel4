@@ -61,7 +61,7 @@ namespace WestcoastEducation.Web.Data.Migrations
 
             modelBuilder.Entity("WestcoastEducation.Web.Models.Student", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -93,17 +93,14 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("StudentId");
+                    b.HasKey("UserId");
 
                     b.ToTable("Students");
                 });
 
             modelBuilder.Entity("WestcoastEducation.Web.Models.Teacher", b =>
                 {
-                    b.Property<int>("TeacherId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -135,10 +132,7 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("TeacherId");
+                    b.HasKey("UserId");
 
                     b.ToTable("Teachers");
                 });
