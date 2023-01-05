@@ -20,9 +20,15 @@ public class ClassroomController : Controller
     }
 
     [Route("details/{classroomId}")]
-    public IActionResult Details(int classroomId)
+    public async Task<IActionResult> Details(int classroomId)
     {
+        // hämtar kurserna(klassrum) från databasen och lägger endast den kursen som har det ID som användaren har klickat på i variabeln classroom
+        var classroom = await _context.Classrooms.SingleOrDefaultAsync(c => c.ClassroomId == classroomId);
 
-        return View("Details");
+        //kontrollerar att kursen(klassrummet) existerar
+        if (classroom is null) return View(nameof(Index));
+
+        // skicka kursen(klassrummet) till vyn
+        return View("Details", classroom);
     }
 }

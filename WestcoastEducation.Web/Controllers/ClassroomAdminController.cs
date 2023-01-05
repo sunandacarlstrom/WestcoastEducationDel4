@@ -39,5 +39,55 @@ namespace WestcoastEducation.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet("edit/{classroomId}")]
+        public async Task<IActionResult> Edit(int classroomId)
+        {
+            // får tillbaka en kurs och skicka till en vy
+            // här vill jag alltså få tag i en kurs med Id som är lika med det som kommer in mitt metodanrop
+            var classroom = await _context.Classrooms.SingleOrDefaultAsync(c => c.ClassroomId == classroomId);
+
+            if (classroom is not null) return View("Edit", classroom);
+            return Content("Det gick fel...");
+        }
+
+        [HttpPost("edit/{classroomId}")]
+        public async Task<IActionResult> Edit(int classroomId, Classroom classroom)
+        {
+            // vara säker på att kursen jag redigerar/uppdaterar verkligen finns i Changetracking listan
+            var classroomToUpdate = _context.Classrooms.SingleOrDefault(c => c.ClassroomId == classroomId);
+
+            if (classroomToUpdate is null) return RedirectToAction(nameof(Index));
+
+            classroomToUpdate.Name = classroom.Name;
+            classroomToUpdate.Title = classroom.Title;
+            classroomToUpdate.Start = classroom.Start;
+            classroomToUpdate.End = classroom.End;
+
+            //uppdatera en kurs via ef 
+            _context.Classrooms.Update(classroomToUpdate);
+
+            // spara ner i databas (alla ändringar på en o samma gång med _context)
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Route("delete/{classroomId}")]
+        public async Task<IActionResult> Delete(int classroomId)
+        {
+            //hämta in kursen som jag vill radera 
+            var classroomToDelete = await _context.Classrooms.SingleOrDefaultAsync(c => c.ClassroomId == classroomId);
+
+            if (classroomToDelete is null) return RedirectToAction(nameof(Index));
+
+            //radera en kurs direkt 
+            _context.Classrooms.Remove(classroomToDelete);
+
+            // spara ner i databas (alla ändringar på en o samma gång med _context)
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

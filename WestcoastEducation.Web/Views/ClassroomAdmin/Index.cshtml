@@ -10,7 +10,7 @@
     <div class="table-container">
         <div>
             <button>
-            <a asp-action="create" asp-controller="ClassroomAdmin"> Lägg till kurs</a>
+                <a asp-action="create" asp-controller="ClassroomAdmin"> Lägg till kurs</a>
             </button>
         </div>
         <table>
@@ -30,8 +30,8 @@
                 @foreach (var classroom in Model)
                 {
                     <tr>
-                        <td class="edit-icon">
-                            <a asp-action="Edit" asp-controller="ClassroomAdmin"
+                        <td>
+                            <a class="edit-icon" asp-action="Edit" asp-controller="ClassroomAdmin"
                             asp-route-classroomId=@classroom.ClassroomId>
                                 <i class="fa-regular fa-pen-to-square"></i></a>
                         </td>
@@ -43,8 +43,8 @@
                         <td>@classroom.End.ToString("MM/dd/yyyy")</td>
                         <td>@classroom.Length.ToString("dd") dagar</td>
 
-                        <td class="delete-icon">
-                            <a asp-action="Delete" asp-controller="ClassroomAdmin"
+                        <td>
+                            <a class="delete-icon" asp-action="Delete" asp-controller="ClassroomAdmin"
                             asp-route-classroomId=@classroom.ClassroomId>
                                 <i class="fa-solid fa-trash-can"></i></a>
                         </td>

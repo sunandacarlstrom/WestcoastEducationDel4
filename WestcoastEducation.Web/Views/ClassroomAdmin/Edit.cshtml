@@ -2,14 +2,15 @@
 
 @{
     Layout = "_LayoutAdmin";
-    var startDate = DateTime.Today.ToString("yyyy-MM-dd");
-    var endDate = DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd");
+    var startDate = Model.Start.ToString("yyyy-MM-dd");
+    var endDate = Model.End.ToString("yyyy-MM-dd");
 }
 
 <section class="page">
-    <h1 class="page-title">Lägg till kurs</h1>
+    <h1 class="page-title">Redigera kurs</h1>
 
-    <form class="shadow" asp-action="create" asp-controller="ClassroomAdmin" method="post">
+    <form class="shadow" asp-action="edit" asp-controller="ClassroomAdmin" asp-route-classroomId=@Model.ClassroomId
+        method="post">
 
         <div class="form-control">
             <label for="">Kurstitel</label>

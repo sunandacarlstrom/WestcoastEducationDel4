@@ -33,9 +33,9 @@ tbody > tr:hover {
     width: 800px;
 }
 
-.edit-icon a {
+.edit-icon {
     color: var(--icon-secondary-color);
 }
-.delete-icon a{
+.delete-icon {
     color: var(--icon-color);
 }
