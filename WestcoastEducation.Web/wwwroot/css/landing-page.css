@@ -33,11 +33,15 @@
 }
 
 .landing .content-text {
-    width: 42vw;
+    width: 32rem;
+    background-color: var(--primary-transparancy-color);
+    border-radius: 8px;
+    border: 2px solid var(--primary-color);
+    margin: 20px;
 }
 
 .landing .content p {
-    font-size: 1.2rem;
-    max-width: 400vh;
-    margin: 2rem;
+    font-size: 20px;
+    line-height: 1.6;
+    margin: 1rem;
 }

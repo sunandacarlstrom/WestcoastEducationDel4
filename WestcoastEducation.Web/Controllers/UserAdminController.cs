@@ -97,7 +97,6 @@ public class UserAdminController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-
     [HttpGet("create-student")]
     public IActionResult CreateStudent()
     {
@@ -226,8 +225,6 @@ public class UserAdminController : Controller
             return View("_Error", error);
         }
     }
-
-
 
     [Route("delete/{userId}")]
     public async Task<IActionResult> Delete(int userId)

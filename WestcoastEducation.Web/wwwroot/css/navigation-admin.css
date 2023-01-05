@@ -14,10 +14,14 @@
     margin: 0 0.8rem;
 }
 
-.navbar a:hover {
+.navbar li:hover {
     background-color: var(--primary-color);
 }
 
 .navbar ul {
     display: flex;
+}
+
+.navbar li{
+    padding: 1px;
 }
