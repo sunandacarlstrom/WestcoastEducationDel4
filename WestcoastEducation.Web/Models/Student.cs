@@ -4,7 +4,7 @@ namespace WestcoastEducation.Web.Models;
 
 public class Student : User
 {
-    public List<Classroom> _acceptedCourses = new List<Classroom>();
-    public List<Classroom> _ongoingCourses = new List<Classroom>();
-    public List<Classroom> _finishedCourses = new List<Classroom>();
+    public List<User> _acceptedCourses = new List<User>();
+    public List<User> _ongoingCourses = new List<User>();
+    public List<User> _finishedCourses = new List<User>();
 }

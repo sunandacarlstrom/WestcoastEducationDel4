@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WestcoastEducation.Web.Models;
 
-public abstract class User
+public class User
 {
     [Key]
     public int UserId { get; set; }

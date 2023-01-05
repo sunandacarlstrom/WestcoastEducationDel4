@@ -1,7 +1,7 @@
 @model IList<WestcoastEducation.Web.Models.Classroom>
 
 @{
-    ViewBag.PageTitle = "User Account";
+    ViewBag.PageTitle = "Handle Courses";
     Layout = "_LayoutAdmin";
 }
 
@@ -33,14 +33,15 @@
                         <td>
                             <a class="edit-icon" asp-action="Edit" asp-controller="ClassroomAdmin"
                             asp-route-classroomId=@classroom.ClassroomId>
-                                <i class="fa-regular fa-pen-to-square"></i></a>
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
                         </td>
 
                         <td>@classroom.ClassroomId</td>
                         <td>@classroom.Title</td>
                         <td>@classroom.Name</td>
-                        <td>@classroom.Start.ToString("MM/dd/yyyy")</td>
-                        <td>@classroom.End.ToString("MM/dd/yyyy")</td>
+                        <td>@classroom.Start.ToString("yyyy-MM-dd")</td>
+                        <td>@classroom.End.ToString("yyyy-MM-dd")</td>
                         <td>@classroom.Length.ToString("dd") dagar</td>
 
                         <td>

@@ -3,35 +3,66 @@
 @model IList<WestcoastEducation.Web.Models.User>
 
 @{
-    ViewBag.PageTitle = "User Account";
+    ViewBag.PageTitle = "Handle User Accounts";
     Layout = "_LayoutAdmin";
 }
 
-<article class="page">
-    <h2 class="page-title">Användare</h2>
-    <h3 class="page-title">Lärare</h3>
-    <section class="course-container">
-        @foreach (var user in Model)
-        {
-            if (user.GetType() == typeof(Teacher))
-            {
-                <div>
-                    <a asp-action="details" asp-route-userId=@user.UserId>Lärare @user.CompleteName</a>
-                </div>
-            }
-        }
+<article class="page-content">
+    <section class="content-section">
+        <h2 class="page-title">Användare</h2>
     </section>
-    <h3 class="page-title">Studenter</h3>
-        <section class="course-container">
-        @foreach (var user in Model)
-        {
-            if (user.GetType() == typeof(Student))
+    <section class="content-section">
+        <h3 class="page-title">Lärare</h3>
+        <div class="content-container">
+            @foreach (var user in Model)
             {
-                <div>
-                    <a asp-action="details" asp-route-userId=@user.UserId>Student @user.CompleteName</a>
-                </div>
-            }
-        }
-    </section>
+                if (user.GetType() == typeof(Teacher))
+                {
+                    <div>
+                        <a class="edit-icon" asp-action="Edit" asp-controller="UserAdmin" asp-route-userId=@user.UserId>
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
 
+                        <a asp-action="details" asp-route-userId=@user.UserId>@user.CompleteName</a>
+
+                        <a class="delete-icon" asp-action="Delete" asp-controller="UserAdmin" asp-route-userId=@user.UserId>
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+        <div>
+            <button>
+                <a asp-action="create-teacher" asp-controller="UserAdmin"> Lägg till lärare</a>
+            </button>
+        </div>
+    </section>
+    <section class="content-section">
+        <h3 class="page-title">Studenter</h3>
+        <div class="content-container">
+            @foreach (var user in Model)
+            {
+                if (user.GetType() == typeof(Student))
+                {
+                    <div>
+                        <a class="edit-icon" asp-action="Edit" asp-controller="UserAdmin" asp-route-userId=@user.UserId>
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+
+                        <a asp-action="details" asp-route-userId=@user.UserId>@user.CompleteName</a>
+
+                        <a class="delete-icon" asp-action="Delete" asp-controller="UserAdmin" asp-route-userId=@user.UserId>
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+        <div>
+            <button>
+                <a asp-action="create-student" asp-controller="UserAdmin"> Lägg till student</a>
+            </button>
+        </div>
+    </section>
 </article>

@@ -60,18 +60,56 @@ button:hover {
     background-color: var(--primary-color);
 }
 
-.course-container a {
+.content-container a {
     color: var(--dark-color);
     text-decoration: underline;
     font-weight: 800;
 }
 
-.course-container a:active {
+.content-container a:active {
     color: var(--secondary-color);
 }
 
-.course-container {
-    text-align: center;
+.page-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+}
+
+.content-container {
+    width: 32rem;
+    border: solid 2px var(--primary-color);
+    background-color: var(--secondary-color);
+    padding: 12px;
+}
+
+.content-container div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-container div:hover{
+    background-color: var(--primary-border-color);
+}
+
+.content-container a {
+    color: var(--primary-text-color);
+}
+
+.content-container div a:nth-child(1){
+    color: var(--icon-secondary-color);
+}
+
+.content-container div a:nth-child(3){
+    color: var(--icon-color);
 }
 
 .logo-text {
@@ -83,10 +121,11 @@ button:hover {
 }
 
 .page-title {
+    display: flex;
     color: var(--primary-color);
     font-weight: 800;
     font-size: 2rem;
-    padding: 2rem 4rem;
+    padding-bottom: 1rem;
 }
 
 .offer-container {
@@ -102,4 +141,16 @@ button:hover {
 .offer {
     padding: 14px;
     height: 8vh;
+}
+
+.form-control{
+    width: 24vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shadow{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }

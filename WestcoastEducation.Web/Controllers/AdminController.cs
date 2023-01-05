@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace WestcoastEducation.Web.Controllers
+namespace WestcoastEducation.Web.Controllers;
+
+[Route("admin")]
+public class AdminController : Controller
 {
-    [Route("admin")]
-    public class AdminController : Controller
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return View("Index");
-        }
+        return View("Index");
     }
 }
