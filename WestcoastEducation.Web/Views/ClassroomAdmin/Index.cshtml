@@ -18,8 +18,9 @@
                 <tr>
                     <th></th>
                     <th>KursID</th>
-                    <th>Kurstitel</th>
+                    <th>Kursnummer</th>
                     <th>Kursnamn</th>
+                    <th>Kurstitel</th>
                     <th>Startdatum</th>
                     <th>Slutdatum</th>
                     <th>Kurslängd</th>
@@ -38,8 +39,9 @@
                         </td>
 
                         <td>@classroom.ClassroomId</td>
-                        <td>@classroom.Title</td>
+                        <td>@classroom.Number</td>
                         <td>@classroom.Name</td>
+                        <td>@classroom.Title</td>
                         <td>@classroom.Start.ToString("yyyy-MM-dd")</td>
                         <td>@classroom.End.ToString("yyyy-MM-dd")</td>
                         <td>@classroom.Length.ToString("dd") dagar</td>
@@ -54,6 +56,7 @@
             </tbody>
             <tfoot>
                 <tr>
+                    <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>

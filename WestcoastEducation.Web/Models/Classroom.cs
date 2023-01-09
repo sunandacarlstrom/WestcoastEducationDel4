@@ -6,6 +6,7 @@ public class Classroom
 {
     [Key]
     public int ClassroomId { get; set; }
+    public string Number { get; set; } = ""; 
     public string Name { get; set; } = "";
     public string Title { get; set; } = "";
     public string Content { get; set; } = "";

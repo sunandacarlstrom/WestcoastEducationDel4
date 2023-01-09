@@ -40,6 +40,10 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Schedule")
                         .IsRequired()
                         .HasColumnType("TEXT");

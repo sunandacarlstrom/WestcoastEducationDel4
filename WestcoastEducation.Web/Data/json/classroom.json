@@ -1,8 +1,8 @@
 [
     {
-        "courseId": 123,
+        "number": "YTMVP2 Y1507",
         "name": "Webbapplikation MVP",
-        "title": "YTMVP2 Y1507",
+        "title": "WU22",
         "content": "Grunderna i HTML, CSS och JavaScript",
         "avgGrade": 2,
         "start": "2022-09-01",
@@ -12,9 +12,9 @@
         "teacherId": 1
     },
     {
-        "courseId": 123,
+        "number": "YTOPC2 Y1508",
         "name": "Objektorienterad programmering med C#",
-        "title": "YTOPC2 Y1508",
+        "title": "WU22",
         "content": "Grunderna i OOP och C#",
         "avgGrade": 2,
         "start": "2022-09-01",
@@ -24,9 +24,9 @@
         "teacherId": 2
     },
     {
-        "courseId": 123,
+        "number": "YTDW12 Y1504",
         "name": "Dynamiska Webbsystem 1",
-        "title": "YTDW12 Y1504",
+        "title": "WU22",
         "content": "Grunderna i MVC med TDD",
         "avgGrade": 2,
         "start": "2022-09-01",
@@ -36,9 +36,9 @@
         "teacherId": 3
     },
     {
-        "courseId": 123,
+        "number": "YTDW20 Y0046",
         "name": "Dynamiska Webbsystem 2",
-        "title": "YTDW20 Y0046",
+        "title": "WU22",
         "content": "Fortsättning i MVC med TDD",
         "avgGrade": 5,
         "start": "2022-09-01",
