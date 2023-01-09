@@ -1,6 +1,6 @@
 # Databas Sqlite för Westcoast Education
 
-#### Skapat en databas för min första mvc-applikation. Ett fiktivt projekt under namnet Westcoast Education (WE).
+### Skapat en databas för min första mvc-applikation. Ett fiktivt projekt under namnet Westcoast Education (WE).
 
 I denna delen har jag skapat en databas med Sqlite och EntityFrameWork Core. Jag har också skapat en vy som visar övergripande information om kurserna för WE. 
 
