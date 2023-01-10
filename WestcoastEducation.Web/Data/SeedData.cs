@@ -20,7 +20,7 @@ public static class SeedData
         var json = System.IO.File.ReadAllText("Data/json/classroom.json");
 
         // Konvertera json objekten till en lista av Classroom objekt 
-        var classrooms = JsonSerializer.Deserialize<List<Classroom>>(json, options);
+        var classrooms = JsonSerializer.Deserialize<List<ClassroomModel>>(json, options);
 
         // Kontrollerar att classroom inte är null och innehåller data 
         if (classrooms is not null && classrooms.Count > 0)
@@ -30,7 +30,7 @@ public static class SeedData
             await context.SaveChangesAsync();
         }
     }
-    public static async Task LoadStudentData(WestcoastEducationContext context)
+    public static async Task LoadUserData(WestcoastEducationContext context)
     {
         // "neutraliserar" versaler och gemener för att inte problem ska uppstå vid inläsning
         var options = new JsonSerializerOptions
@@ -39,43 +39,18 @@ public static class SeedData
         };
 
         // Vill endast ladda data om databasens tabell är tom
-        if (context.Students.Any()) return;
+        if (context.Users.Any()) return;
 
         // Läs in json data 
-        var json = System.IO.File.ReadAllText("Data/json/student.json");
+        var json = System.IO.File.ReadAllText("Data/json/user.json");
 
         // Konvertera json objekten till en lista av Classroom objekt 
-        var students = JsonSerializer.Deserialize<List<Student>>(json, options);
+        var user = JsonSerializer.Deserialize<List<UserModel>>(json, options);
 
         // Kontrollerar att classroom inte är null och innehåller data 
-        if (students is not null && students.Count > 0)
+        if (user is not null && user.Count > 0)
         {
-            await context.Students.AddRangeAsync(students);
-            //flytta ifrån minnet till databasen 
-            await context.SaveChangesAsync();
-        }
-    }
-    public static async Task LoadTeacherData(WestcoastEducationContext context)
-    {
-        // "neutraliserar" versaler och gemener för att inte problem ska uppstå vid inläsning
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        // Vill endast ladda data om databasens tabell är tom
-        if (context.Teachers.Any()) return;
-
-        // Läs in json data 
-        var json = System.IO.File.ReadAllText("Data/json/teacher.json");
-
-        // Konvertera json objekten till en lista av Classroom objekt 
-        var teachers = JsonSerializer.Deserialize<List<Teacher>>(json, options);
-
-        // Kontrollerar att classroom inte är null och innehåller data 
-        if (teachers is not null && teachers.Count > 0)
-        {
-            await context.Teachers.AddRangeAsync(teachers);
+            await context.Users.AddRangeAsync(user);
             //flytta ifrån minnet till databasen 
             await context.SaveChangesAsync();
         }

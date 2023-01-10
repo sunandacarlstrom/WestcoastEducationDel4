@@ -11,7 +11,7 @@ using WestcoastEducation.Web.Data;
 namespace WestcoastEducation.Web.Data.Migrations
 {
     [DbContext(typeof(WestcoastEducationContext))]
-    [Migration("20230109191316_InitialCreate")]
+    [Migration("20230110192324_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace WestcoastEducation.Web.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
-            modelBuilder.Entity("WestcoastEducation.Web.Models.Classroom", b =>
+            modelBuilder.Entity("WestcoastEducation.Web.Models.ClassroomModel", b =>
                 {
                     b.Property<int>("ClassroomId")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace WestcoastEducation.Web.Data.Migrations
                     b.ToTable("Classrooms");
                 });
 
-            modelBuilder.Entity("WestcoastEducation.Web.Models.Student", b =>
+            modelBuilder.Entity("WestcoastEducation.Web.Models.UserModel", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -79,6 +79,9 @@ namespace WestcoastEducation.Web.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsATeacher")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -102,46 +105,7 @@ namespace WestcoastEducation.Web.Data.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("WestcoastEducation.Web.Models.Teacher", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SocialSecurityNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Teachers");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

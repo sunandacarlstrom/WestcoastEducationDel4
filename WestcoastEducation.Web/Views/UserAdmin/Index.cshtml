@@ -1,6 +1,4 @@
-@using WestcoastEducation.Web.Models
-
-@model IList<WestcoastEducation.Web.Models.User>
+@model IList<WestcoastEducation.Web.Models.UserModel>
 
 @{
     ViewBag.PageTitle = "Handle User Accounts";
@@ -15,13 +13,13 @@
         <h3 class="page-title">Lärare</h3>
         <div>
             <button>
-                <a asp-action="create-teacher" asp-controller="UserAdmin"> Lägg till lärare</a>
+                <a asp-action="create" asp-controller="UserAdmin" asp-route-isATeacher=true> Lägg till lärare</a>
             </button>
         </div>
         <div class="content-container">
             @foreach (var user in Model)
             {
-                if (user.GetType() == typeof(Teacher))
+                if (user.IsATeacher == true)
                 {
                     <div>
                         <a class="edit-icon" asp-action="Edit" asp-controller="UserAdmin" asp-route-userId=@user.UserId>
@@ -42,13 +40,13 @@
         <h3 class="page-title">Studenter</h3>
         <div>
             <button>
-                <a asp-action="create-student" asp-controller="UserAdmin"> Lägg till student</a>
+                <a asp-action="create" asp-controller="UserAdmin" asp-route-isATeacher=false> Lägg till student</a>
             </button>
         </div>
         <div class="content-container">
             @foreach (var user in Model)
             {
-                if (user.GetType() == typeof(Student))
+                if (user.IsATeacher == false)
                 {
                     <div>
                         <a class="edit-icon" asp-action="Edit" asp-controller="UserAdmin" asp-route-userId=@user.UserId>

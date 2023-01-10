@@ -6,9 +6,8 @@ namespace WestcoastEducation.Web.Data
     public class WestcoastEducationContext : DbContext
     {
         // Skapar kopplingen mellan min databas och mina klasser
-        public DbSet<Classroom> Classrooms => Set<Classroom>();
-        public DbSet<Student> Students => Set<Student>();
-        public DbSet<Teacher> Teachers => Set<Teacher>();
+        public DbSet<ClassroomModel> Classrooms => Set<ClassroomModel>();
+        public DbSet<UserModel> Users => Set<UserModel>();
 
         public WestcoastEducationContext(DbContextOptions options) : base(options) { }
     }

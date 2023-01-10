@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WestcoastEducation.Web.Models;
 
-public class User
+public class UserModel
 {
     [Key]
     public int UserId { get; set; }
@@ -14,4 +14,5 @@ public class User
     public string StreetAddress { get; set; } = "";
     public string PostalCode { get; set; } = "";
     public string Phone { get; set; } = ""; 
+    public bool IsATeacher {get; set;} = false;
 }

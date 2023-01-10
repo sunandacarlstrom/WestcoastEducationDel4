@@ -38,12 +38,12 @@ public class ClassroomAdminController : Controller
     public IActionResult Create()
     {
         // skapa ett nytt objekt för att skicka över till vyn
-        var classroom = new Classroom();
+        var classroom = new ClassroomModel();
         return View("Create", classroom);
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create(Classroom classroom)
+    public async Task<IActionResult> Create(ClassroomModel classroom)
     {
         try
         {
@@ -118,8 +118,40 @@ public class ClassroomAdminController : Controller
     }
 
     [HttpPost("edit/{classroomId}")]
-    public async Task<IActionResult> Edit(int classroomId, Classroom classroom)
+    public async Task<IActionResult> Edit(int classroomId, ClassroomModel classroom)
     {
+        // samma funktion som i Create 
+        try
+        {
+            // söker efter ett kursnummer lika med det som kommer in i anropet 
+            var exists = await _context.Classrooms.SingleOrDefaultAsync(
+                c => c.Number.Trim().ToUpper() == classroom.Number.Trim().ToUpper());
+
+            // kontrollerar om detta nummer redan existerar
+            if (exists is not null)
+            {
+                var error = new ErrorModel
+                {
+                    ErrorTitle = "Ett fel har inträffat när kursen skulle sparas",
+                    ErrorMessage = $"En kurs med numret {classroom.Number} finns redan i systemet"
+                };
+
+                //skicka tillbaka en vy som visar information gällande felet 
+                return View("_Error", error);
+            }
+        }
+        // Ett annat fel har inträffat som vi inte har räknat med...
+        catch (Exception ex)
+        {
+            var error = new ErrorModel
+            {
+                ErrorTitle = "Ett fel har inträffat när kursen skulle sparas",
+                ErrorMessage = ex.Message
+            };
+
+            return View("_Error", error);
+        }
+
         try
         {
             // vara säker på att kursen jag vill redigera/uppdatera verkligen finns i Changetracking listan

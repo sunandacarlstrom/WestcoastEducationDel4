@@ -34,7 +34,7 @@ namespace WestcoastEducation.Web.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
+                name: "Users",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -45,30 +45,12 @@ namespace WestcoastEducation.Web.Data.Migrations
                     SocialSecurityNumber = table.Column<string>(type: "TEXT", nullable: false),
                     StreetAddress = table.Column<string>(type: "TEXT", nullable: false),
                     PostalCode = table.Column<string>(type: "TEXT", nullable: false),
-                    Phone = table.Column<string>(type: "TEXT", nullable: false)
+                    Phone = table.Column<string>(type: "TEXT", nullable: false),
+                    IsATeacher = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teachers",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    SocialSecurityNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    StreetAddress = table.Column<string>(type: "TEXT", nullable: false),
-                    PostalCode = table.Column<string>(type: "TEXT", nullable: false),
-                    Phone = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teachers", x => x.UserId);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
         }
 
@@ -79,10 +61,7 @@ namespace WestcoastEducation.Web.Data.Migrations
                 name: "Classrooms");
 
             migrationBuilder.DropTable(
-                name: "Students");
-
-            migrationBuilder.DropTable(
-                name: "Teachers");
+                name: "Users");
         }
     }
 }

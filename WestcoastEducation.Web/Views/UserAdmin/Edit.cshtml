@@ -1,4 +1,4 @@
-@model WestcoastEducation.Web.Models.User
+@model WestcoastEducation.Web.Models.UserModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -21,21 +21,25 @@
             <label for="">E-post</label>
             <input asp-for="Email" />
         </div>
-         <div class="form-control">
+        <div class="form-control">
             <label for="">Personnummer</label>
             <input asp-for="SocialSecurityNumber" />
         </div>
-         <div class="form-control">
+        <div class="form-control">
             <label for="">Gatuadress</label>
             <input asp-for="StreetAddress" />
         </div>
-          <div class="form-control">
+        <div class="form-control">
             <label for="">Postkod</label>
             <input asp-for="PostalCode" />
         </div>
-          <div class="form-control">
+        <div class="form-control">
             <label for="">Telefon</label>
             <input asp-for="Phone" />
+        </div>
+        <div class="form-control">
+            <label for="">Kryssa i om användaren är en lärare</label>
+            <input asp-for="IsATeacher" type="checkbox" />
         </div>
 
         <div class="form-control">

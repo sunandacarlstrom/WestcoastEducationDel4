@@ -1,13 +1,13 @@
-@model WestcoastEducation.Web.Models.Teacher
+@model WestcoastEducation.Web.Models.UserModel
 
 @{
     Layout = "_LayoutAdmin";
 }
 
 <section class="page">
-    <h1 class="page-title">Lägg till lärare</h1>
+    <h1 class="page-title">Lägg till användare</h1>
 
-    <form class="shadow" asp-action="create-teacher" asp-controller="UserAdmin" method="post">
+    <form class="shadow" asp-action="create" asp-controller="UserAdmin" method="post">
 
         <div class="form-control">
             <label for="">Förnamn</label>
@@ -36,6 +36,10 @@
         <div class="form-control">
             <label for="">Telefonnummer</label>
             <input asp-for="Phone" />
+        </div>
+        <div class="form-control">
+            <label for="">Kryssa i om användaren är en lärare</label>
+            <input asp-for="IsATeacher" type="checkbox" />
         </div>
 
         <div class="form-control">

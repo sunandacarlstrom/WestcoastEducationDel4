@@ -14,29 +14,17 @@ public class UserAdminController : Controller
         _context = context;
     }
 
-    private async Task<List<User>> GetUsers()
-    {
-        // hämtar användarna(lärare och elever) från databasen
-        var students = await _context.Students.ToListAsync();
-        var teachers = await _context.Teachers.ToListAsync();
-
-        List<User> users = new List<User>();
-        users.AddRange(teachers);
-        users.AddRange(students);
-        return users;
-    }
-
     public async Task<IActionResult> Index()
     {
-        List<User> users = await GetUsers();
+        List<UserModel> users = await _context.Users.ToListAsync();
         return View("Index", users);
     }
 
     [Route("details/{userId}")]
     public async Task<IActionResult> Details(int userId)
     {
-        List<User> users = await GetUsers();
-        User? user = users.FirstOrDefault(u => u.UserId == userId);
+        List<UserModel> users = await _context.Users.ToListAsync();
+        UserModel? user = users.SingleOrDefault(u => u.UserId == userId);
 
         //kontrollerar att användaren existerar
         if (user is null) return View(nameof(Index));
@@ -45,30 +33,32 @@ public class UserAdminController : Controller
         return View("Details", user);
     }
 
-    [HttpGet("create-teacher")]
-    public IActionResult CreateTeacher()
+    [HttpGet("create/{isATeacher}")]
+    public IActionResult Create(bool isATeacher)
     {
         // skapa ett nytt objekt för att skicka över till vyn
-        var teacher = new Teacher();
-        return View("CreateTeacher", teacher);
+        var user = new UserModel();
+        // stoppar in boolean värdet in i modellen User för att använda i vyn 
+        user.IsATeacher = isATeacher;
+        return View("Create", user);
     }
 
-    [HttpPost("create-teacher")]
-    public async Task<IActionResult> CreateTeacher(Teacher teacher)
+    [HttpPost("create/{isATeacher}")]
+    public async Task<IActionResult> Create(UserModel user)
     {
         try
         {
             // söker efter personnummer lika med det som kommer in i anropet
-            var exists = await _context.Teachers.SingleOrDefaultAsync(
-                t => t.SocialSecurityNumber.Trim().ToLower() == teacher.SocialSecurityNumber.Trim().ToLower());
+            var exists = await _context.Users.SingleOrDefaultAsync(
+                u => u.SocialSecurityNumber.Trim().ToLower() == user.SocialSecurityNumber.Trim().ToLower());
 
             // kontrollerar om det inmatade personnumret redan existerar
             if (exists is not null)
             {
                 var error = new ErrorModel
                 {
-                    ErrorTitle = "Ett fel har inträffat när användaren (läraren) skulle sparas",
-                    ErrorMessage = $"En lärare med samma personnummer som {teacher.SocialSecurityNumber} finns redan i systemet"
+                    ErrorTitle = "Ett fel har inträffat när användaren skulle sparas",
+                    ErrorMessage = $"En användare med samma personnummer som {user.SocialSecurityNumber} finns redan i systemet"
                 };
 
                 //skicka tillbaka en vy som visar information gällande felet 
@@ -80,7 +70,7 @@ public class UserAdminController : Controller
         {
             var error = new ErrorModel
             {
-                ErrorTitle = "Ett fel har inträffat när användaren (läraren) skulle sparas",
+                ErrorTitle = "Ett fel har inträffat när användaren skulle sparas",
                 ErrorMessage = ex.Message
             };
 
@@ -90,59 +80,7 @@ public class UserAdminController : Controller
         // Om allt går bra, inga fel inträffar...
 
         // lägg upp kursen i minnet
-        await _context.Teachers.AddAsync(teacher);
-        // spara ner i databas
-        await _context.SaveChangesAsync();
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    [HttpGet("create-student")]
-    public IActionResult CreateStudent()
-    {
-        // skapa ett nytt objekt för att skicka över till vyn
-        var student = new Student();
-        return View("CreateStudent", student);
-    }
-
-    [HttpPost("create-student")]
-    public async Task<IActionResult> CreateStudent(Student student)
-    {
-        try
-        {
-            // söker efter en kurstitel lika med det som kommer in i anropet 
-            var exists = await _context.Students.SingleOrDefaultAsync(
-                s => s.SocialSecurityNumber.Trim().ToLower() == student.SocialSecurityNumber.Trim().ToLower());
-
-            // kontrollerar om det inmatade personnumret redan existerar
-            if (exists is not null)
-            {
-                var error = new ErrorModel
-                {
-                    ErrorTitle = "Ett fel har inträffat när användaren (studenten) skulle sparas",
-                    ErrorMessage = $"En student med samma personnummer som {student.SocialSecurityNumber} finns redan i systemet"
-                };
-
-                //skicka tillbaka en vy som visar information gällande felet 
-                return View("_Error", error);
-            }
-        }
-        // Ett annat fel har inträffat som vi inte har räknat med...
-        catch (Exception ex)
-        {
-            var error = new ErrorModel
-            {
-                ErrorTitle = "Ett fel har inträffat när användaren (studenten) skulle sparas",
-                ErrorMessage = ex.Message
-            };
-
-            return View("_Error", error);
-        }
-
-        // Om allt går bra, inga fel inträffar...
-
-        // lägg upp kursen i minnet
-        await _context.Students.AddAsync(student);
+        await _context.Users.AddAsync(user);
         // spara ner i databas
         await _context.SaveChangesAsync();
 
@@ -154,8 +92,8 @@ public class UserAdminController : Controller
     {
         try
         {
-            List<User> users = await GetUsers();
-            User? user = users.FirstOrDefault(u => u.UserId == userId);
+            List<UserModel> users = await _context.Users.ToListAsync();
+            UserModel? user = users.SingleOrDefault(u => u.UserId == userId);
 
             if (user is not null) return View("Edit", user);
 
@@ -180,13 +118,45 @@ public class UserAdminController : Controller
     }
 
     [HttpPost("edit/{userId}")]
-    public async Task<IActionResult> Edit(int userId, User user)
+    public async Task<IActionResult> Edit(int userId, UserModel user)
     {
+        // samma funktion som i Create 
         try
         {
-            List<User> users = await GetUsers();
+            // söker efter personnummer lika med det som kommer in i anropet
+            var exists = await _context.Users.SingleOrDefaultAsync(
+                u => u.SocialSecurityNumber.Trim().ToLower() == user.SocialSecurityNumber.Trim().ToLower());
+
+            // kontrollerar om det inmatade personnumret redan existerar
+            if (exists is not null)
+            {
+                var error = new ErrorModel
+                {
+                    ErrorTitle = "Ett fel har inträffat när användaren skulle sparas",
+                    ErrorMessage = $"En användare med samma personnummer som {user.SocialSecurityNumber} finns redan i systemet"
+                };
+
+                //skicka tillbaka en vy som visar information gällande felet 
+                return View("_Error", error);
+            }
+        }
+        // Ett annat fel har inträffat som vi inte har räknat med...
+        catch (Exception ex)
+        {
+            var error = new ErrorModel
+            {
+                ErrorTitle = "Ett fel har inträffat när användaren skulle sparas",
+                ErrorMessage = ex.Message
+            };
+
+            return View("_Error", error);
+        }
+
+        try
+        {
+            List<UserModel> users = await _context.Users.ToListAsync();
             // vara säker på att användaren jag redigerar/uppdaterar verkligen finns i Changetracking listan
-            User? userToUpdate = users.FirstOrDefault(u => u.UserId == userId);
+            UserModel? userToUpdate = users.SingleOrDefault(u => u.UserId == userId);
 
             if (userToUpdate is null) return RedirectToAction(nameof(Index));
 
@@ -197,16 +167,11 @@ public class UserAdminController : Controller
             userToUpdate.StreetAddress = user.StreetAddress;
             userToUpdate.PostalCode = user.PostalCode;
             userToUpdate.Phone = user.Phone;
+            userToUpdate.IsATeacher = user.IsATeacher;
 
-            //uppdatera en kurs via ef 
-            if (userToUpdate.GetType() == typeof(Teacher))
-            {
-                _context.Teachers.Update(userToUpdate as Teacher);
-            }
-            else
-            {
-                _context.Students.Update(userToUpdate as Student);
-            }
+            //uppdatera en användare via ef 
+            _context.Users.Update(userToUpdate);
+
 
             // spara ner i databas (alla ändringar på en o samma gång med _context)
             await _context.SaveChangesAsync();
@@ -231,20 +196,15 @@ public class UserAdminController : Controller
     {
         try
         {
-            List<User> users = await GetUsers();
-            User? userToDelete = users.FirstOrDefault(c => c.UserId == userId);
+            List<UserModel> users = await _context.Users.ToListAsync();
+            UserModel? userToDelete = users.SingleOrDefault(u => u.UserId == userId);
 
             if (userToDelete is null) return RedirectToAction(nameof(Index));
 
             //radera en användare direkt 
-            if (userToDelete.GetType() == typeof(Teacher))
-            {
-                _context.Teachers.Remove(userToDelete as Teacher);
-            }
-            else
-            {
-                _context.Students.Remove(userToDelete as Student);
-            }
+            _context.Users.Remove(userToDelete);
+
+
 
             // spara ner i databas (alla ändringar på en o samma gång med _context)
             await _context.SaveChangesAsync();
