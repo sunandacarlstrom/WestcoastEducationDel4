@@ -47,17 +47,17 @@ public class ClassroomAdminController : Controller
     {
         try
         {
-            // söker efter en kurstitel lika med det som kommer in i mitt anrop 
+            // söker efter ett kursnummer lika med det som kommer in i anropet 
             var exists = await _context.Classrooms.SingleOrDefaultAsync(
-                c => c.Title.Trim().ToUpper() == classroom.Title.Trim().ToUpper());
+                c => c.Number.Trim().ToUpper() == classroom.Number.Trim().ToUpper());
 
-            // kontrollerar om denna titeln redan existerar
+            // kontrollerar om detta nummer redan existerar
             if (exists is not null)
             {
                 var error = new ErrorModel
                 {
                     ErrorTitle = "Ett fel har inträffat när kursen skulle sparas",
-                    ErrorMessage = $"En kurs med titeln {classroom.Title} finns redan i systemet"
+                    ErrorMessage = $"En kurs med numret {classroom.Number} finns redan i systemet"
                 };
 
                 //skicka tillbaka en vy som visar information gällande felet 
@@ -92,7 +92,7 @@ public class ClassroomAdminController : Controller
         try
         {
             // får tillbaka en kurs och skicka till en vy
-            // här vill jag alltså få tag i en kurs med Id som är lika med det som kommer in mitt metodanrop
+            // här vill jag alltså få tag i en kurs med Id som är lika med det som kommer in i metodanropet
             var classroom = await _context.Classrooms.SingleOrDefaultAsync(c => c.ClassroomId == classroomId);
 
             if (classroom is not null) return View("Edit", classroom);
@@ -122,11 +122,12 @@ public class ClassroomAdminController : Controller
     {
         try
         {
-            // vara säker på att kursen jag redigerar/uppdaterar verkligen finns i Changetracking listan
+            // vara säker på att kursen jag vill redigera/uppdatera verkligen finns i Changetracking listan
             var classroomToUpdate = _context.Classrooms.SingleOrDefault(c => c.ClassroomId == classroomId);
 
             if (classroomToUpdate is null) return RedirectToAction(nameof(Index));
 
+            classroomToUpdate.Number = classroom.Number;
             classroomToUpdate.Name = classroom.Name;
             classroomToUpdate.Title = classroom.Title;
             classroomToUpdate.Start = classroom.Start;

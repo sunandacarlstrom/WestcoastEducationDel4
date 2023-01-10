@@ -16,7 +16,7 @@ public class UserAdminController : Controller
 
     private async Task<List<User>> GetUsers()
     {
-        // hämtar användarna(lärare och elever) från databasen och lägger endast den kursen som har det ID som användaren har klickat på i variabeln classroom
+        // hämtar användarna(lärare och elever) från databasen
         var students = await _context.Students.ToListAsync();
         var teachers = await _context.Teachers.ToListAsync();
 
