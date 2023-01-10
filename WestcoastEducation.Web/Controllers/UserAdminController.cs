@@ -120,38 +120,6 @@ public class UserAdminController : Controller
     [HttpPost("edit/{userId}")]
     public async Task<IActionResult> Edit(int userId, UserModel user)
     {
-        // samma funktion som i Create 
-        try
-        {
-            // söker efter personnummer lika med det som kommer in i anropet
-            var exists = await _context.Users.SingleOrDefaultAsync(
-                u => u.SocialSecurityNumber.Trim().ToLower() == user.SocialSecurityNumber.Trim().ToLower());
-
-            // kontrollerar om det inmatade personnumret redan existerar
-            if (exists is not null)
-            {
-                var error = new ErrorModel
-                {
-                    ErrorTitle = "Ett fel har inträffat när användaren skulle sparas",
-                    ErrorMessage = $"En användare med samma personnummer som {user.SocialSecurityNumber} finns redan i systemet"
-                };
-
-                //skicka tillbaka en vy som visar information gällande felet 
-                return View("_Error", error);
-            }
-        }
-        // Ett annat fel har inträffat som vi inte har räknat med...
-        catch (Exception ex)
-        {
-            var error = new ErrorModel
-            {
-                ErrorTitle = "Ett fel har inträffat när användaren skulle sparas",
-                ErrorMessage = ex.Message
-            };
-
-            return View("_Error", error);
-        }
-
         try
         {
             List<UserModel> users = await _context.Users.ToListAsync();
