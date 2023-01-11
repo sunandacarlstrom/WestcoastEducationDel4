@@ -1,4 +1,4 @@
-namespace WestcoastEducation.Web.ViewModels;
+namespace WestcoastEducation.Web.ViewModels.Classrooms;
 
 public class ClassroomListViewModel
 {

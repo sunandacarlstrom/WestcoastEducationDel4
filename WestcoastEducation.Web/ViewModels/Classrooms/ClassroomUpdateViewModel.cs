@@ -1,10 +1,14 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace WestcoastEducation.Web.ViewModels;
+namespace WestcoastEducation.Web.ViewModels.Classrooms;
 
-public class ClassroomPostViewModel
+public class ClassroomUpdateViewModel
 {
+    //behöver ClassroomId för att ta mig till Edit-sidan för en specifik kurs och ClassroomId för att gå tillbaka samt spara kursen
+    [Required(ErrorMessage = "Kurs id är obligatoriskt")]
+    public int ClassroomId { get; set; }
+
     [Required(ErrorMessage = "Kursnummer är obligatoriskt")]
     [DisplayName("Kursnummer")]
     public string Number { get; set; } = "";

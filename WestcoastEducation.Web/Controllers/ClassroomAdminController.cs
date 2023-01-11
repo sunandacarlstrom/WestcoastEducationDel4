@@ -1,26 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WestcoastEducation.Web.Data;
+using WestcoastEducation.Web.Interfaces;
 using WestcoastEducation.Web.Models;
-using WestcoastEducation.Web.ViewModels;
+using WestcoastEducation.Web.ViewModels.Classrooms;
 
 namespace WestcoastEducation.Web.Controllers;
 
 [Route("classroomadmin")]
 public class ClassroomAdminController : Controller
 {
-    private readonly WestcoastEducationContext _context;
-    public ClassroomAdminController(WestcoastEducationContext context)
+    private readonly IClassroomRepository _repo;
+    public ClassroomAdminController(IClassroomRepository repo)
     {
-        _context = context;
+        _repo = repo;
     }
 
     public async Task<IActionResult> Index()
     {
         try
         {
-            // använder context för att koppla vyn till databasen
-            var classrooms = await _context.Classrooms.ToListAsync();
+            // går direkt till mitt repository(repo) och hittar rätt metod 
+            var classrooms = await _repo.ListAllAsync();
 
             // här görs en projicering med hjälp av LINQ, dvs. jag vill ta all data som finns i ClassroomModel och gör ett nytt objekt
             // för varje kurs i den listan kommer det ske en intern loop och skapar ett nytt ClassroomListViewModel
@@ -68,12 +69,11 @@ public class ClassroomAdminController : Controller
     {
         try
         {
-            //skriver ut felmeddelandet direkt i vyn med hjälp av dekorations attributen i ClassroomPostViewModel
+            // skriver ut felmeddelandet direkt i vyn med hjälp av dekorations attributen i ClassroomPostViewModel
             if (!ModelState.IsValid) return View("Create", classroom);
 
-            // söker efter ett kursnummer lika med det som kommer in i anropet 
-            var exists = await _context.Classrooms.SingleOrDefaultAsync(
-                c => c.Number.Trim().ToUpper() == classroom.Number.Trim().ToUpper());
+            // söker efter ett kursnummer lika med det som kommer in i anropet via mitt repo
+            var exists = await _repo.FindByNumberAsync(classroom.Number);
 
             // kontrollerar om detta nummer redan existerar
             if (exists is not null)
@@ -84,7 +84,7 @@ public class ClassroomAdminController : Controller
                     ErrorMessage = $"En kurs med numret {classroom.Number} finns redan i systemet"
                 };
 
-                //skicka tillbaka en vy som visar information gällande felet 
+                // skicka tillbaka en vy som visar information gällande felet 
                 return View("_Error", error);
             }
 
@@ -103,15 +103,25 @@ public class ClassroomAdminController : Controller
                 TeacherId = classroom.TeacherId
             };
 
-            // Om allt går bra, inga fel inträffar...
+            // lägg upp kursen i minnet via mitt repo
+            if (await _repo.AddAsync(classrooomToAdd))
+            {
+                // spara ner i databas via mitt repo
+                if (await _repo.SaveAsync())
+                {
+                    // Om allt går bra, inga fel inträffar...
+                    return RedirectToAction(nameof(Index));
+                }
+            }
 
-            // lägg upp kursen i minnet
-            await _context.Classrooms.AddAsync(classrooomToAdd);
-            // spara ner i databas
-            await _context.SaveChangesAsync();
+            var saveError = new ErrorModel
+            {
+                ErrorTitle = "Ett fel har inträffat när kursen skulle sparas",
+                ErrorMessage = $"Det inträffade ett fel när kursen med kursnumret {classroom.Number} skulle sparas"
+            };
 
-            return RedirectToAction(nameof(Index));
-
+            // skicka tillbaka en vy som visar information gällande felet 
+            return View("_Error", saveError);
         }
         // Ett annat fel har inträffat som vi inte har räknat med...
         catch (Exception ex)
@@ -132,8 +142,8 @@ public class ClassroomAdminController : Controller
         try
         {
             // får tillbaka en kurs och skicka till en vy
-            // här vill jag alltså få tag i en kurs med Id som är lika med det som kommer in i metodanropet
-            var result = await _context.Classrooms.SingleOrDefaultAsync(c => c.ClassroomId == classroomId);
+            // här vill jag alltså få tag i en kurs med Id som är lika med det som kommer in i metodanropet via mitt repo
+            var result = await _repo.FindByIdAsync(classroomId);
 
             // kontrollerar om jag inte hittar kursen så skickas ett felmeddelande ut 
             if (result is null)
@@ -186,7 +196,7 @@ public class ClassroomAdminController : Controller
             if (!ModelState.IsValid) return View("Edit", classroom);
 
             // vara säker på att kursen jag vill redigera/uppdatera verkligen finns i Changetracking listan
-            var classroomToUpdate = _context.Classrooms.SingleOrDefault(c => c.ClassroomId == classroomId);
+            var classroomToUpdate = await _repo.FindByIdAsync(classroomId);
 
             if (classroomToUpdate is null) return RedirectToAction(nameof(Index));
 
@@ -197,13 +207,23 @@ public class ClassroomAdminController : Controller
             classroomToUpdate.End = classroom.End;
 
             //uppdatera en kurs via ef 
-            _context.Classrooms.Update(classroomToUpdate);
+            if (await _repo.UpdateAsync(classroomToUpdate))
+            {
+                // Om allt går bra...
+                // sparas det ner i databas (alla ändringar på en o samma gång via _repo)
+                if (await _repo.SaveAsync())
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
 
-            // spara ner i databas (alla ändringar på en o samma gång med _context)
-            await _context.SaveChangesAsync();
+            var error = new ErrorModel
+            {
+                ErrorTitle = "Ett fel har inträffat när redigering av kursen skulle sparas",
+                ErrorMessage = $"Ett fel inträffade när vi skulle uppdatera kursen med kursnumret {classroomToUpdate.Number}"
+            };
 
-            return RedirectToAction(nameof(Index));
-
+            return View("_Error", error);
         }
         catch (Exception ex)
         {
@@ -222,18 +242,27 @@ public class ClassroomAdminController : Controller
     {
         try
         {
-            //hämta in kursen som jag vill radera 
-            var classroomToDelete = await _context.Classrooms.SingleOrDefaultAsync(c => c.ClassroomId == classroomId);
+            //hämta in kursen som jag vill radera via mitt repo
+            var classroomToDelete = await _repo.FindByIdAsync(classroomId);
 
             if (classroomToDelete is null) return RedirectToAction(nameof(Index));
 
-            //radera en kurs direkt 
-            _context.Classrooms.Remove(classroomToDelete);
+            // radera kursen
+            if (await _repo.DeleteAsync(classroomToDelete))
+            {
+                // spara ner i databas (alla ändringar på en o samma gång)
+                if (await _repo.SaveAsync())
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            var error = new ErrorModel
+            {
+                ErrorTitle = "Ett fel har inträffat när kursen skulle raderas",
+                ErrorMessage = $"Ett fel inträffade när kursen med kursnumret {classroomToDelete.Number} skulle tas bort"
+            };
 
-            // spara ner i databas (alla ändringar på en o samma gång med _context)
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            return View("_Error", error);
         }
         catch (Exception ex)
         {

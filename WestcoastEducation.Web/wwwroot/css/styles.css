@@ -152,15 +152,20 @@ button a {
 }
 
 .form-control {
-    width: 24vw;
     display: flex;
     justify-content: space-between;
+    gap: 2rem;
+}
+
+.form-control > * {
+    width: 33%;
 }
 
 .shadow {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 47rem;
 }
 
 .user-type {
@@ -169,6 +174,7 @@ button a {
 }
 
 .error {
-    font-size: x-small;
+    font-size: smaller;
     color: var(--error-text);
+    font-style: italic;
 }

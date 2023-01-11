@@ -1,4 +1,4 @@
-@model WestcoastEducation.Web.ViewModels.ClassroomPostViewModel
+@model WestcoastEducation.Web.ViewModels.Classrooms.ClassroomPostViewModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -10,7 +10,6 @@
     <h1 class="page-title">Lägg till kurs</h1>
 
     <form class="shadow" asp-action="create" asp-controller="ClassroomAdmin" method="post">
-
 
         <div class="form-control">
             <label asp-for="Number"></label>

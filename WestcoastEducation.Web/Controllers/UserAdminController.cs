@@ -1,22 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WestcoastEducation.Web.Data;
+using WestcoastEducation.Web.Interfaces;
 using WestcoastEducation.Web.Models;
+using WestcoastEducation.Web.ViewModels.Users;
 
 namespace WestcoastEducation.Web.Controllers;
 
 [Route("useradmin")]
 public class UserAdminController : Controller
 {
-    private readonly WestcoastEducationContext _context;
-    public UserAdminController(WestcoastEducationContext context)
+    private readonly IUserRepository _repo;
+    public UserAdminController(IUserRepository repo)
     {
-        _context = context;
+        _repo = repo;
     }
 
     public async Task<IActionResult> Index()
     {
-        List<UserModel> users = await _context.Users.ToListAsync();
+        var result = await _repo.ListAllAsync();
+        var users = result.Select(u => new UserListViewModel
+        {
+            UserId = u.UserId,
+            Email = u.Email,
+            FirstName = u.FirstName,
+            LastName = u.LastName,
+            SocialSecurityNumber = u.SocialSecurityNumber,
+            StreetAddress = u.StreetAddress,
+            PostalCode = u.PostalCode,
+            Phone = u.Phone,
+            IsATeacher = u.IsATeacher
+        }).ToList();
+
         return View("Index", users);
     }
 
