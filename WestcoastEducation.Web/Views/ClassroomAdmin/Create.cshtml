@@ -1,4 +1,4 @@
-@model WestcoastEducation.Web.Models.ClassroomModel
+@model WestcoastEducation.Web.ViewModels.ClassroomPostViewModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -13,29 +13,34 @@
 
 
         <div class="form-control">
-            <label for="">Kursnummer</label>
+            <label asp-for="Number"></label>
             <input asp-for="Number" />
+            <span class="error" asp-validation-for="Number"></span>
         </div>
         <div class="form-control">
-            <label for="">Kursnamn</label>
+            <label asp-for="Name"></label>
             <input asp-for="Name" />
+            <span class="error" asp-validation-for="Name"></span>
         </div>
         <div class="form-control">
-            <label for="">Kurstitel</label>
+            <label asp-for="Title"></label>
             <input asp-for="Title" />
+            <span class="error" asp-validation-for="Title"></span>
         </div>
         <div class="form-control">
-            <label for="">Startdatum</label>
+            <label asp-for="Start"></label>
             <input asp-for="Start" type="date" value="@startDate" />
+            <span class="error" asp-validation-for="Start"></span>
         </div>
         <div class="form-control">
-            <label for="">Slutdatum</label>
+            <label asp-for="End"></label>
             <input asp-for="End" type="date" value="@endDate" />
+            <span class="error" asp-validation-for="End"></span>
         </div>
 
         <div class="form-control">
             <div class="buttons-container">
-                  <button type="Submit" class="btn-submit">
+                <button type="Submit" class="btn-submit">
                     <i class="fa-sharp fa-solid fa-floppy-disk"></i> Spara
                 </button>
                 <button class="btn-cancel">

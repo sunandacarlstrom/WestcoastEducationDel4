@@ -163,7 +163,12 @@ button a {
     gap: 5px;
 }
 
-.user-type{
+.user-type {
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
+}
+
+.error {
+    font-size: x-small;
+    color: var(--error-text);
 }
