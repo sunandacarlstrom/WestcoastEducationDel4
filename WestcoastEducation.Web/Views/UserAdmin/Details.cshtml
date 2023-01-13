@@ -1,4 +1,4 @@
-@model WestcoastEducation.Web.Models.UserModel
+@model WestcoastEducation.Web.ViewModels.Users.UserListViewModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -10,6 +10,8 @@
     <h2>Hej! @Model.CompleteName</h2>
     <h3 class="user-type">@userType</h3>
     <ul>
+        <li><b>Användarnamn: @Model.UserName</b></li>
+
         <li>Förnamn: @Model.FirstName</li>
         <li>Efternamn: @Model.LastName</li>
         <li>E-Post: @Model.Email</li>

@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WestcoastEducation.Web.Data;
 using WestcoastEducation.Web.Interfaces;
 using WestcoastEducation.Web.Models;
 using WestcoastEducation.Web.ViewModels.Classrooms;
@@ -32,12 +30,9 @@ public class ClassroomAdminController : Controller
                 Name = c.Name,
                 Title = c.Title,
                 Content = c.Content,
-                AvgGrade = c.AvgGrade,
                 Start = c.Start,
                 End = c.End,
-                Schedule = c.Schedule,
-                IsOnDistance = c.IsOnDistance,
-                TeacherId = c.TeacherId
+                IsOnDistance = c.IsOnDistance
                 // typar om min projicering till en IList eftersom min model per automatik vill ta emot en IEnumerable
             }).ToList();
 
@@ -95,12 +90,9 @@ public class ClassroomAdminController : Controller
                 Name = classroom.Name,
                 Title = classroom.Title,
                 Content = classroom.Content,
-                AvgGrade = classroom.AvgGrade,
                 Start = classroom.Start,
                 End = classroom.End,
-                Schedule = classroom.Schedule,
                 IsOnDistance = classroom.IsOnDistance,
-                TeacherId = classroom.TeacherId
             };
 
             // lägg upp kursen i minnet via mitt repo
@@ -165,12 +157,9 @@ public class ClassroomAdminController : Controller
                 Name = result.Name,
                 Title = result.Title,
                 Content = result.Content,
-                AvgGrade = result.AvgGrade,
                 Start = result.Start,
                 End = result.End,
-                Schedule = result.Schedule,
                 IsOnDistance = result.IsOnDistance,
-                TeacherId = result.TeacherId
             };
 
             return View("Edit", model);

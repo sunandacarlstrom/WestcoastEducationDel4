@@ -5,7 +5,7 @@ namespace WestcoastEducation.Web.ViewModels.Classrooms;
 
 public class ClassroomUpdateViewModel
 {
-    //behöver ClassroomId för att ta mig till Edit-sidan för en specifik kurs och ClassroomId för att gå tillbaka samt spara kursen
+    //behöver ClassroomId för att uppdatera/editera en specifik kurs 
     [Required(ErrorMessage = "Kurs id är obligatoriskt")]
     public int ClassroomId { get; set; }
 
@@ -24,9 +24,6 @@ public class ClassroomUpdateViewModel
     [DisplayName("Kursinnehåll")]
     public string Content { get; set; } = "";
 
-    [DisplayName("Genomsnittligt betyg som kursen har fått av studenter")]
-    public double AvgGrade { get; set; }
-
     [Required(ErrorMessage = "Startdatum är obligatoriskt")]
     [DisplayName("Startdatum")]
     public DateTime Start { get; set; }
@@ -38,10 +35,6 @@ public class ClassroomUpdateViewModel
     [DisplayName("Kurslängd")]
     public TimeSpan Length { get => End - Start; }
 
-    [DisplayName("Kursschema")]
-    public string Schedule { get; set; } = "";
-    [DisplayName("Är kursen på distans?✅")]
-    public bool IsOnDistance { get; init; }
-    [DisplayName("LärarId")]
-    public int TeacherId { get; set; }
+    [DisplayName("Är kursen på distans?")]
+    public bool IsOnDistance { get; set; }
 }

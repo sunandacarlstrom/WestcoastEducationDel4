@@ -11,7 +11,7 @@ using WestcoastEducation.Web.Data;
 namespace WestcoastEducation.Web.Data.Migrations
 {
     [DbContext(typeof(WestcoastEducationContext))]
-    [Migration("20230110192324_InitialCreate")]
+    [Migration("20230112143632_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,9 +25,6 @@ namespace WestcoastEducation.Web.Data.Migrations
                     b.Property<int>("ClassroomId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<double>("AvgGrade")
-                        .HasColumnType("REAL");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -47,15 +44,8 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Schedule")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Start")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -87,6 +77,10 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -100,6 +94,10 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

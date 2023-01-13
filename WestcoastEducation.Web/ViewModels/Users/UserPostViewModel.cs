@@ -5,6 +5,10 @@ namespace WestcoastEducation.Web.ViewModels.Users;
 
 public class UserPostViewModel
 {
+    [Required(ErrorMessage = "Användarnamn är obligatoriskt")]
+    [DisplayName("Användarnamn")]
+    public string UserName { get; set; } = "";
+
     [Required(ErrorMessage = "E-postadress är obligatoriskt")]
     [DisplayName("E-post")]
     public string Email { get; set; } = "";
@@ -24,15 +28,22 @@ public class UserPostViewModel
     [DisplayName("Personnummer")]
     public string SocialSecurityNumber { get; set; } = "";
 
+    [Required(ErrorMessage = "Gatuadress är obligatoriskt")]
     [DisplayName("Gatuadress")]
     public string StreetAddress { get; set; } = "";
 
+    [Required(ErrorMessage = "Postkod är obligatoriskt")]
     [DisplayName("Postkod")]
     public string PostalCode { get; set; } = "";
 
+    [Required(ErrorMessage = "Telefonnummer är obligatoriskt")]
     [DisplayName("Telefonnummer")]
     public string Phone { get; set; } = "";
 
-    [DisplayName("Är användaren en lärare?✅")]
+    [DisplayName("Är användaren en lärare?")]
     public bool IsATeacher { get; set; } = false;
+
+    [Required(ErrorMessage = "Ett standard lösenord är obligatoriskt")]
+    [DisplayName("Temporärt lösenord")]
+    public string Password { get; set; } = "";
 }

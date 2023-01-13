@@ -21,12 +21,9 @@ namespace WestcoastEducation.Web.Data.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Content = table.Column<string>(type: "TEXT", nullable: false),
-                    AvgGrade = table.Column<double>(type: "REAL", nullable: false),
                     Start = table.Column<DateTime>(type: "TEXT", nullable: false),
                     End = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Schedule = table.Column<string>(type: "TEXT", nullable: false),
-                    IsOnDistance = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TeacherId = table.Column<int>(type: "INTEGER", nullable: false)
+                    IsOnDistance = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,6 +36,7 @@ namespace WestcoastEducation.Web.Data.Migrations
                 {
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
@@ -46,7 +44,8 @@ namespace WestcoastEducation.Web.Data.Migrations
                     StreetAddress = table.Column<string>(type: "TEXT", nullable: false),
                     PostalCode = table.Column<string>(type: "TEXT", nullable: false),
                     Phone = table.Column<string>(type: "TEXT", nullable: false),
-                    IsATeacher = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsATeacher = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,4 +1,4 @@
-@model WestcoastEducation.Web.Models.UserModel
+@model WestcoastEducation.Web.ViewModels.Users.UserPostViewModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -10,44 +10,54 @@
     <form class="shadow" asp-action="create" asp-controller="UserAdmin" method="post">
 
         <div class="form-control">
+            <label asp-for="UserName"></label>
+            <input asp-for="UserName" />
+            <span class="error" asp-validation-for="UserName"></span>
+        </div>
+        <div class="form-control">
             <label asp-for="FirstName"></label>
             <input asp-for="FirstName" />
             <span class="error" asp-validation-for="FirstName"></span>
         </div>
         <div class="form-control">
-            <label for="LastName"></label>
+            <label asp-for="LastName"></label>
             <input asp-for="LastName" />
             <span class="error" asp-validation-for="LastName"></span>
         </div>
         <div class="form-control">
-            <label for="Email"></label>
+            <label asp-for="Email"></label>
             <input asp-for="Email" />
             <span class="error" asp-validation-for="Email"></span>
         </div>
         <div class="form-control">
-            <label for="SocialSecurityNumber"></label>
+            <label asp-for="SocialSecurityNumber"></label>
             <input asp-for="SocialSecurityNumber" />
             <span class="error" asp-validation-for="SocialSecurityNumber"></span>
         </div>
         <div class="form-control">
-            <label for="StreetAddress"></label>
+            <label asp-for="StreetAddress"></label>
             <input asp-for="StreetAddress" />
             <span class="error" asp-validation-for="StreetAddress"></span>
         </div>
         <div class="form-control">
-            <label for="PostalCode"></label>
+            <label asp-for="PostalCode"></label>
             <input asp-for="PostalCode" />
             <span class="error" asp-validation-for="PostalCode"></span>
         </div>
         <div class="form-control">
-            <label for="Phone"></label>
+            <label asp-for="Phone"></label>
             <input asp-for="Phone" />
             <span class="error" asp-validation-for="Phone"></span>
         </div>
         <div class="form-control">
-            <label for="IsATeacher"></label></label>
+            <label asp-for="IsATeacher"></label>
             <input asp-for="IsATeacher" type="checkbox" />
             <span class="error" asp-validation-for="IsATeacher"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" />
+            <span class="error" asp-validation-for="Password"></span>
         </div>
 
         <div class="form-control">

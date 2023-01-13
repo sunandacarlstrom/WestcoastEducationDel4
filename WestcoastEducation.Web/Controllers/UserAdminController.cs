@@ -21,7 +21,7 @@ public class UserAdminController : Controller
         var users = result.Select(u => new UserListViewModel
         {
             UserId = u.UserId,
-            //TODO: Lägg till UserName = user.UserName 
+            UserName = u.UserName,
             Email = u.Email,
             FirstName = u.FirstName,
             LastName = u.LastName,
@@ -30,7 +30,6 @@ public class UserAdminController : Controller
             PostalCode = u.PostalCode,
             Phone = u.Phone,
             IsATeacher = u.IsATeacher
-            //TODO: Lägg till Password = user.Password 
         }).ToList();
 
         return View("Index", users);
@@ -43,10 +42,25 @@ public class UserAdminController : Controller
         // UserModel? user = users.SingleOrDefault(u => u.UserId == userId);
 
         //TODO: Kontrollera att det funkar
-        var user = await _repo.FindByIdAsync(userId);
+        var result = await _repo.FindByIdAsync(userId);
 
         //kontrollerar att användaren existerar
-        if (user is null) return View(nameof(Index));
+        if (result is null) return View(nameof(Index));
+
+        var user = new UserListViewModel()
+        {
+            UserId = result.UserId,
+            UserName = result.UserName,
+            Email = result.Email,
+            FirstName = result.FirstName,
+            LastName = result.LastName,
+            SocialSecurityNumber = result.SocialSecurityNumber,
+            StreetAddress = result.StreetAddress,
+            PostalCode = result.PostalCode,
+            Phone = result.Phone,
+            IsATeacher = result.IsATeacher
+
+        };
 
         // skicka användaren till vyn
         return View("Details", user);
@@ -59,6 +73,7 @@ public class UserAdminController : Controller
         var user = new UserPostViewModel();
         // stoppar in boolean värdet in i modellen User för att använda i vyn 
         user.IsATeacher = isATeacher;
+
         return View("Create", user);
     }
 
@@ -89,7 +104,7 @@ public class UserAdminController : Controller
             //UserModel (datamodell) är det jag kan skicka till databasen
             var userToAdd = new UserModel
             {
-                //TODO: Lägg till UserName = user.UserName 
+                UserName = user.UserName,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -97,8 +112,8 @@ public class UserAdminController : Controller
                 StreetAddress = user.StreetAddress,
                 PostalCode = user.PostalCode,
                 Phone = user.Phone,
-                IsATeacher = user.IsATeacher
-                //TODO: Lägg till Password = user.Password 
+                IsATeacher = user.IsATeacher,
+                Password = user.Password
             };
 
             // Om allt går bra, inga fel inträffar...
@@ -122,35 +137,69 @@ public class UserAdminController : Controller
         }
     }
 
-    // [HttpGet("edit/{userId}")]
-    // public async Task<IActionResult> Edit(int userId)
-    // {
-    //     try
-    //     {
-    //         List<UserModel> users = await _context.Users.ToListAsync();
-    //         UserModel? user = users.SingleOrDefault(u => u.UserId == userId);
+    [HttpGet("edit/{userId}")]
+    public async Task<IActionResult> Edit(int userId)
+    {
+        var result = await _repo.FindByIdAsync(userId);
 
-    //         if (user is not null) return View("Edit", user);
+        if (result is null)
+        {
+            return View("Error", new ErrorModel
+            {
+                ErrorTitle = "Kunde inte hitta användare",
+                ErrorMessage = $"Vi kunde inte hitta någon användare med id {userId}"
+            });
+        }
 
-    //         var error = new ErrorModel
+        var userToUpdate = new UserUpdateViewModel
+        {
+            UserId = result.UserId,
+            UserName = result.UserName,
+            FirstName = result.FirstName,
+            LastName = result.LastName,
+            SocialSecurityNumber = result.SocialSecurityNumber,
+            StreetAddress = result.StreetAddress,
+            PostalCode = result.PostalCode,
+            Phone = result.Phone,
+            IsATeacher = result.IsATeacher,
+        };
+
+        return View("Edit", userToUpdate);
+    }
+
+
+
+
+    //         try
     //         {
-    //             ErrorTitle = "Ett fel har inträffat när en användare skulle hämtas för redigering",
-    //             ErrorMessage = $"Hittar ingen användare med id {userId}"
-    //         };
+    //             List<UserModel> users = await _context.Users.ToListAsync();
+    //     UserModel? user = users.SingleOrDefault(u => u.UserId == userId);
 
-    //         return View("_Error", error);
-    //     }
-    //     catch (Exception ex)
+    //             if (user is not null) return View("Edit", user);
+
+    //     var error = new ErrorModel
     //     {
-    //         var error = new ErrorModel
-    //         {
-    //             ErrorTitle = "Ett fel har inträffat när en användare skulle hämtas för redigering",
-    //             ErrorMessage = ex.Message
-    //         };
+    //         ErrorTitle = "Ett fel har inträffat när en användare skulle hämtas för redigering",
+    //         ErrorMessage = $"Hittar ingen användare med id {userId}"
+    //     };
 
-    //         return View("_Error", error);
-    //     }
+    //             return View("_Error", error);
     // }
+    //         catch (Exception ex)
+    //         {
+    //             var error = new ErrorModel
+    //             {
+    //                 ErrorTitle = "Ett fel har inträffat när en användare skulle hämtas för redigering",
+    //                 ErrorMessage = ex.Message
+    //             };
+
+    //             return View("_Error", error);
+    //         }
+    //     }
+
+
+
+
 
     // [HttpPost("edit/{userId}")]
     // public async Task<IActionResult> Edit(int userId, UserModel user)

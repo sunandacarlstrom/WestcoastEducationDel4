@@ -165,7 +165,9 @@ button a {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 47rem;
+    width: 80vw;
+    min-width: 30rem; 
+    max-width: 60rem;
 }
 
 .user-type {

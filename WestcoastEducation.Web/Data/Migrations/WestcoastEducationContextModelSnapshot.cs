@@ -23,9 +23,6 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("AvgGrade")
-                        .HasColumnType("REAL");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -44,15 +41,8 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Schedule")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Start")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -84,6 +74,10 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -97,6 +91,10 @@ namespace WestcoastEducation.Web.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

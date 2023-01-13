@@ -21,9 +21,6 @@ public class ClassroomPostViewModel
     [DisplayName("Kursinnehåll")]
     public string Content { get; set; } = "";
 
-    [DisplayName("Genomsnittligt betyg som kursen har fått av studenter")]
-    public double AvgGrade { get; set; }
-
     [Required(ErrorMessage = "Startdatum är obligatoriskt")]
     [DisplayName("Startdatum")]
     public DateTime Start { get; set; }
@@ -35,10 +32,6 @@ public class ClassroomPostViewModel
     [DisplayName("Kurslängd")]
     public TimeSpan Length { get => End - Start; }
 
-    [DisplayName("Kursschema")]
-    public string Schedule { get; set; } = "";
-    [DisplayName("Är kursen på distans?✅")]
-    public bool IsOnDistance { get; init; }
-    [DisplayName("LärarId")]
-    public int TeacherId { get; set; }
+    [DisplayName("Är kursen på distans?")]
+    public bool IsOnDistance { get; set; }
 }
