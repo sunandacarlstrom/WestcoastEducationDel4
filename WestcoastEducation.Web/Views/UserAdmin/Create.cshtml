@@ -15,6 +15,11 @@
             <span class="error" asp-validation-for="UserName"></span>
         </div>
         <div class="form-control">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" />
+            <span class="error" asp-validation-for="Password"></span>
+        </div>
+        <div class="form-control">
             <label asp-for="FirstName"></label>
             <input asp-for="FirstName" />
             <span class="error" asp-validation-for="FirstName"></span>
@@ -53,11 +58,6 @@
             <label asp-for="IsATeacher"></label>
             <input asp-for="IsATeacher" type="checkbox" />
             <span class="error" asp-validation-for="IsATeacher"></span>
-        </div>
-        <div class="form-control">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" />
-            <span class="error" asp-validation-for="Password"></span>
         </div>
 
         <div class="form-control">
