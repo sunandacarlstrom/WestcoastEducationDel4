@@ -24,17 +24,6 @@ public class ClassroomDetailsViewModel
     {
         get
         {
-            // string[] contentList;
-            // if (Content != "")
-            // {
-            //     contentList = Content.Split('|');
-            // }
-            // else
-            // {
-            //     contentList = new string[] { "" };
-            // }
-            // return contentList;
-
             string[] contentList = Content.Split('|');
             return contentList;
         }
