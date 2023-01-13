@@ -5,7 +5,7 @@ using WestcoastEducation.Web.ViewModels.Classrooms;
 
 namespace WestcoastEducation.Web.Controllers;
 
-[Route("classroomadmin")]
+[Route("admin/classroom")]
 public class ClassroomAdminController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -19,7 +19,7 @@ public class ClassroomAdminController : Controller
         try
         {
             // går direkt till UnitOfWork och hittar rätt metod 
-            var classrooms = await _unitOfWork.ClassroomRepository.ListAllAsync(); 
+            var classrooms = await _unitOfWork.ClassroomRepository.ListAllAsync();
 
             // här görs en projicering med hjälp av LINQ, dvs. jag vill ta all data som finns i ClassroomModel och gör ett nytt objekt
             // för varje kurs i den listan kommer det ske en intern loop och skapar ett nytt ClassroomListViewModel
@@ -42,7 +42,7 @@ public class ClassroomAdminController : Controller
         {
             var error = new ErrorModel
             {
-                ErrorTitle = "Ett fel har inträffat vid inhämtning av alla kurser",
+                ErrorTitle = "Ett oväntat fel har inträffat vid inhämtning av kurser",
                 ErrorMessage = ex.Message
             };
 

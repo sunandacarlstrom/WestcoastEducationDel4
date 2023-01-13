@@ -5,7 +5,7 @@ using WestcoastEducation.Web.ViewModels.Users;
 
 namespace WestcoastEducation.Web.Controllers;
 
-[Route("useradmin")]
+[Route("admin/user")]
 public class UserAdminController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -82,7 +82,7 @@ public class UserAdminController : Controller
             {
                 var error = new ErrorModel
                 {
-                    ErrorTitle = "Användaren finns redan",
+                    ErrorTitle = "Användaren finns redan!",
                     ErrorMessage = $"Användare med e-postadressen {user.Email} finns redan i systemet"
                 };
 
@@ -120,7 +120,7 @@ public class UserAdminController : Controller
             // annars inträffar ett fel som vi inte har räknat med
             return View("Error", new ErrorModel
             {
-                ErrorTitle = "Gick inte att spara användare",
+                ErrorTitle = "Kunde inte spara användaren",
                 ErrorMessage = $"Ett fel har inträffat när användare {user.CompleteName} skulle sparas"
             });
         }
@@ -135,8 +135,8 @@ public class UserAdminController : Controller
         {
             return View("Error", new ErrorModel
             {
-                ErrorTitle = "Kunde inte hitta användare",
-                ErrorMessage = $"Vi kunde inte hitta någon användare med id {userId}"
+                ErrorTitle = "Kunde inte hitta användaren",
+                ErrorMessage = $"Det gick inte att hitta en användare med id {userId}"
             });
         }
 
@@ -185,12 +185,11 @@ public class UserAdminController : Controller
             userToUpdate.Email = user.Email;
             userToUpdate.FirstName = user.FirstName;
             userToUpdate.LastName = user.LastName;
-            // userToUpdate.SocialSecurityNumber = user.SocialSecurityNumber;
+            userToUpdate.SocialSecurityNumber = user.SocialSecurityNumber;
             userToUpdate.StreetAddress = user.StreetAddress;
             userToUpdate.PostalCode = user.PostalCode;
             userToUpdate.Phone = user.Phone;
             userToUpdate.IsATeacher = user.IsATeacher;
-            // userToUpdate.Password = user.Password;
 
             //försök att göra en UpdateAsync för att spara i minnet 
             if (await _unitOfWork.UserRepository.UpdateAsync(userToUpdate))
@@ -214,7 +213,7 @@ public class UserAdminController : Controller
         {
             return View("_Error", new ErrorModel
             {
-                ErrorTitle = "Ett fel har inträffat",
+                ErrorTitle = "Ett oväntat fel har inträffat",
                 ErrorMessage = ex.Message
             });
         }
@@ -245,7 +244,7 @@ public class UserAdminController : Controller
             return View("_Error", new ErrorModel
             {
                 ErrorTitle = "Ett fel inträffade när användaren skulle tas bort",
-                ErrorMessage = $"Ett fel inträffade när anbvändare med id {userId} skulle raderas"
+                ErrorMessage = $"Ett fel inträffade när användare med id {userId} skulle raderas"
             });
         }
         catch (Exception ex)

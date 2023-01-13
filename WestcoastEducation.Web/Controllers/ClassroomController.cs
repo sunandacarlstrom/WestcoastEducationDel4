@@ -42,7 +42,7 @@ public class ClassroomController : Controller
         {
             var error = new ErrorModel
             {
-                ErrorTitle = "Ett fel har inträffat vid inhämtning av alla kurser",
+                ErrorTitle = "Ett fel har inträffat vid inhämtning av kurser",
                 ErrorMessage = ex.Message
             };
 
@@ -78,7 +78,7 @@ public class ClassroomController : Controller
         {
             var error = new ErrorModel
             {
-                ErrorTitle = "Ett fel har inträffat vid inhämtning av alla kurser",
+                ErrorTitle = "Ett fel har inträffat",
                 ErrorMessage = ex.Message
             };
 
