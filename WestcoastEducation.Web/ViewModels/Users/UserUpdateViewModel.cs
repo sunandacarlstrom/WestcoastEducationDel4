@@ -48,6 +48,7 @@ namespace WestcoastEducation.Web.ViewModels.Users
         public bool IsATeacher { get; set; } = false;
 
         // behöver Password för att den inte är nullable i databasen men skickar inte heller in något annat än det befintliga lösenordet
+        [DisplayName("Lösenord")]
         public string Password { get; set; } = "";
     }
 }

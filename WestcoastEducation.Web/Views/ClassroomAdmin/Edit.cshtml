@@ -37,17 +37,20 @@
             <span class="error" asp-validation-for="End"></span>
         </div>
 
+        @* P.S ändrat knappen till en icke-button på Avbryt *@
+
         <div class="form-control">
             <div class="buttons-container">
                 <button type="Submit" class="btn-submit">
-                    <i class="fa-sharp fa-solid fa-floppy-disk"></i> Spara
+                    <i class="fa-sharp fa-solid fa-floppy-disk"></i>
+                    Spara
                 </button>
-                <button class="btn-cancel">
-                    <a asp-action="Index" asp-controller="ClassroomAdmin">
-                        <i class="fa-solid fa-arrow-left"></i> Avbryt</a>
-                </button>
+                <a asp-action="Index" asp-controller="ClassroomAdmin" class="btn-cancel">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Avbryt
+                </a>
             </div>
-
         </div>
+
     </form>
 </section>

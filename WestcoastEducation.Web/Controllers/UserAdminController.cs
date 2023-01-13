@@ -38,10 +38,6 @@ public class UserAdminController : Controller
     [Route("details/{userId}")]
     public async Task<IActionResult> Details(int userId)
     {
-        // List<UserModel> users = await _context.Users.ToListAsync();
-        // UserModel? user = users.SingleOrDefault(u => u.UserId == userId);
-
-        //TODO: Kontrollera att det funkar
         var result = await _repo.FindByIdAsync(userId);
 
         //kontrollerar att användaren existerar
@@ -59,7 +55,6 @@ public class UserAdminController : Controller
             PostalCode = result.PostalCode,
             Phone = result.Phone,
             IsATeacher = result.IsATeacher
-
         };
 
         // skicka användaren till vyn
@@ -155,123 +150,119 @@ public class UserAdminController : Controller
         {
             UserId = result.UserId,
             UserName = result.UserName,
+            Email = result.Email,
             FirstName = result.FirstName,
             LastName = result.LastName,
             SocialSecurityNumber = result.SocialSecurityNumber,
             StreetAddress = result.StreetAddress,
             PostalCode = result.PostalCode,
             Phone = result.Phone,
-            IsATeacher = result.IsATeacher,
+            IsATeacher = result.IsATeacher
         };
 
         return View("Edit", userToUpdate);
     }
 
+    [HttpPost("edit/{userId}")]
+    public async Task<IActionResult> Edit(int userId, UserUpdateViewModel user)
+    {
+        try
+        {
+            // kontrollerar att ModelState är giltigt, om inte så retunerar den tillbaka till vår vy Edit och skickar med objekten och ser vilka fel vi måste åtgärda
+            if (!ModelState.IsValid) return View("Edit", user);
 
+            //om vår modell är giltig då hämtar vi vår användare från databasen med Id som vi får in i vårt anrop 
+            var userToUpdate = await _repo.FindByIdAsync(userId);
 
+            //om jag inte fick den av någon orsak då skickar jag iväg en ny felmodell 
+            if (userToUpdate is null)
+            {
+                var notFoundError = new ErrorModel
+                {
+                    ErrorTitle = "Användare saknas!",
+                    ErrorMessage = $"Det gick inte att hitta användaren {user.CompleteName}"
+                };
 
-    //         try
-    //         {
-    //             List<UserModel> users = await _context.Users.ToListAsync();
-    //     UserModel? user = users.SingleOrDefault(u => u.UserId == userId);
+                return View("_Error", notFoundError);
+            }
 
-    //             if (user is not null) return View("Edit", user);
+            //om användaren finns då ska vi uppdatera den användaren vi plockade ut från databasen 
+            //endast det jag väljer att uppdateras här kommer att behövas uppdateras av admin
+            userToUpdate.Email = user.Email;
+            userToUpdate.FirstName = user.FirstName;
+            userToUpdate.LastName = user.LastName;
+            // userToUpdate.SocialSecurityNumber = user.SocialSecurityNumber;
+            userToUpdate.StreetAddress = user.StreetAddress;
+            userToUpdate.PostalCode = user.PostalCode;
+            userToUpdate.Phone = user.Phone;
+            userToUpdate.IsATeacher = user.IsATeacher;
+            // userToUpdate.Password = user.Password;
 
-    //     var error = new ErrorModel
-    //     {
-    //         ErrorTitle = "Ett fel har inträffat när en användare skulle hämtas för redigering",
-    //         ErrorMessage = $"Hittar ingen användare med id {userId}"
-    //     };
+            //försök att göra en UpdateAsync för att spara i minnet 
+            if (await _repo.UpdateAsync(userToUpdate))
+            {
+                //försöker spara till databasen 
+                if (await _repo.SaveAsync())
+                {
+                    //om sant så skickas man vidare till Index sidan 
+                    return RedirectToAction(nameof(Index));
+                }
+            }
 
-    //             return View("_Error", error);
-    // }
-    //         catch (Exception ex)
-    //         {
-    //             var error = new ErrorModel
-    //             {
-    //                 ErrorTitle = "Ett fel har inträffat när en användare skulle hämtas för redigering",
-    //                 ErrorMessage = ex.Message
-    //             };
+            return View("_Error", new ErrorModel
+            {
+                ErrorTitle = "Ett fel inträffade",
+                ErrorMessage = "Något gick fel när användaren skulle uppdateras"
+            });
+        }
 
-    //             return View("_Error", error);
-    //         }
-    //     }
+        catch (Exception ex)
+        {
+            return View("_Error", new ErrorModel
+            {
+                ErrorTitle = "Ett fel har inträffat",
+                ErrorMessage = ex.Message
+            });
+        }
+    }
 
+    [Route("delete/{userId}")]
+    public async Task<IActionResult> Delete(int userId)
+    {
+        try
+        {
+            //letar upp användaren som vi ska ta bort 
+            var userToDelete = await _repo.FindByIdAsync(userId);
 
+            // gör samma kontroll igen, om användaren inte fanns så retuneras Index istället för Error-sida 
+            if (userToDelete is null) return RedirectToAction(nameof(Index));
 
+            //annars gör ett försök att lägga användaren i Delete-kö i Changetracking och går det bra får man tillabka true
+            if (await _repo.DeleteAsync(userToDelete))
 
+            {
+                //går det bra skicka alla ändringar till datrabasenm 
+                if (await _repo.SaveAsync())
+                {
+                    //tillsut gå tillbaka itill Index 
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View("_Error", new ErrorModel
+            {
+                ErrorTitle = "Ett fel inträffade när användaren skulle tas bort",
+                ErrorMessage = $"Ett fel inträffade när anbvändare med id {userId} skulle raderas"
+            });
+        }
+        catch (Exception ex)
+        {
+            var error = new ErrorModel
+            {
+                ErrorTitle = "Ett oväntat fel har inträffat när användaren skulle raderas",
+                ErrorMessage = ex.Message
+            };
 
-    // [HttpPost("edit/{userId}")]
-    // public async Task<IActionResult> Edit(int userId, UserModel user)
-    // {
-    //     try
-    //     {
-    //         List<UserModel> users = await _context.Users.ToListAsync();
-    //         // vara säker på att användaren jag redigerar/uppdaterar verkligen finns i Changetracking listan
-    //         UserModel? userToUpdate = users.SingleOrDefault(u => u.UserId == userId);
-
-    //         if (userToUpdate is null) return RedirectToAction(nameof(Index));
-
-    //         userToUpdate.Email = user.Email;
-    //         userToUpdate.FirstName = user.FirstName;
-    //         userToUpdate.LastName = user.LastName;
-    //         userToUpdate.SocialSecurityNumber = user.SocialSecurityNumber;
-    //         userToUpdate.StreetAddress = user.StreetAddress;
-    //         userToUpdate.PostalCode = user.PostalCode;
-    //         userToUpdate.Phone = user.Phone;
-    //         userToUpdate.IsATeacher = user.IsATeacher;
-
-    //         //uppdatera en användare via ef 
-    //         _context.Users.Update(userToUpdate);
-
-
-    //         // spara ner i databas (alla ändringar på en o samma gång med _context)
-    //         await _context.SaveChangesAsync();
-
-    //         return RedirectToAction(nameof(Index));
-
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         var error = new ErrorModel
-    //         {
-    //             ErrorTitle = "Ett fel har inträffat när redigering av kursen skulle sparas",
-    //             ErrorMessage = ex.Message
-    //         };
-
-    //         return View("_Error", error);
-    //     }
-    // }
-
-    // [Route("delete/{userId}")]
-    // public async Task<IActionResult> Delete(int userId)
-    // {
-    //     try
-    //     {
-    //         List<UserModel> users = await _context.Users.ToListAsync();
-    //         UserModel? userToDelete = users.SingleOrDefault(u => u.UserId == userId);
-
-    //         if (userToDelete is null) return RedirectToAction(nameof(Index));
-
-    //         //radera en användare direkt 
-    //         _context.Users.Remove(userToDelete);
-
-
-
-    //         // spara ner i databas (alla ändringar på en o samma gång med _context)
-    //         await _context.SaveChangesAsync();
-
-    //         return RedirectToAction(nameof(Index));
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         var error = new ErrorModel
-    //         {
-    //             ErrorTitle = "Ett fel har inträffat när användaren skulle raderas",
-    //             ErrorMessage = ex.Message
-    //         };
-
-    //         return View("_Error", error);
-    //     }
-    // }
+            return View("_Error", error);
+        }
+    }
 }

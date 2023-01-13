@@ -4,47 +4,35 @@
         "name": "Webbapplikation MVP",
         "title": "WU22",
         "content": "Grunderna i HTML, CSS och JavaScript",
-        "avgGrade": 2,
         "start": "2022-09-01",
         "end": "2022-10-01", 
-        "schedule": "",
-        "isOnDistance": false,
-        "teacherId": 1
+        "isOnDistance": false
     },
     {
         "number": "YTOPC2 Y1508",
         "name": "Objektorienterad programmering med C#",
         "title": "WU22",
         "content": "Grunderna i OOP och C#",
-        "avgGrade": 2,
         "start": "2022-09-01",
         "end": "2022-10-01", 
-        "schedule": "",
-        "isOnDistance": false,
-        "teacherId": 2
+        "isOnDistance": false
     },
     {
         "number": "YTDW12 Y1504",
         "name": "Dynamiska Webbsystem 1",
         "title": "WU22",
         "content": "Grunderna i MVC med TDD",
-        "avgGrade": 2,
         "start": "2022-09-01",
         "end": "2022-10-01", 
-        "schedule": "",
-        "isOnDistance": false,
-        "teacherId": 3
+        "isOnDistance": false
     },
     {
         "number": "YTDW20 Y0046",
         "name": "Dynamiska Webbsystem 2",
         "title": "WU22",
         "content": "Fortsättning i MVC med TDD",
-        "avgGrade": 5,
         "start": "2022-09-01",
         "end": "2022-10-01", 
-        "schedule": "",
-        "isOnDistance": false,
-        "teacherId": 3
+        "isOnDistance": false
     }
 ]

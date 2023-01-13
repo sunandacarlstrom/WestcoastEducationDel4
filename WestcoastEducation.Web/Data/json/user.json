@@ -1,5 +1,6 @@
 [
     {
+        "username": "martro",
         "email": "maria@ju.com",
         "firstName": "Maria",
         "lastName": "Gunnarsson Trofast",
@@ -7,19 +8,23 @@
         "streetAddress": "Östra Storgatan 16",
         "postalCode": "553 43",
         "phone": "0725446698",
-        "isATeacher": true
+        "isATeacher": true,
+        "password": "Password!"
     },
     {
+        "username": "andper",
         "email": "anders@ju.com",
-        "firstName": "Michael",
+        "firstName": "Anders",
         "lastName": "Persson",
         "socialSecurityNumber": "19540102",
         "streetAddress": "Storgatsbacken 2b",
         "postalCode": "553 43",
         "phone": "0725446698",
-        "isATeacher": true
+        "isATeacher": true,
+        "password": "Password!"
     },
     {
+        "username": "micgus",
         "email": "michael@ju.com",
         "firstName": "Michael",
         "lastName": "Gustafsson",
@@ -27,9 +32,11 @@
         "streetAddress": "Värnamovägen 1c",
         "postalCode": "553 43",
         "phone": "0725446698",
-        "isATeacher": true
+        "isATeacher": true,
+        "password": "Password!"
     },
     {
+        "username": "adasve",
         "email": "hej@hej.com",
         "firstName": "Adam",
         "lastName": "Svensson",
@@ -37,9 +44,11 @@
         "streetAddress": "Herkulesvägen 22",
         "postalCode": "553 43",
         "phone": "0725446694",
-        "isATeacher": false
+        "isATeacher": false,
+        "password": "Password!"
     },
     {
+        "username": "suncar",
         "email": "hej@då.com",
         "firstName": "Sunanda",
         "lastName": "Carlström",
@@ -47,9 +56,11 @@
         "streetAddress": "Sjöbogatan 19",
         "postalCode": "553 33",
         "phone": "0732554405",
-        "isATeacher": false
+        "isATeacher": false,
+        "password": "Password!"
     },
     {
+        "username": "frejoh",
         "email": "hej@svejs.com",
         "firstName": "Fredrik",
         "lastName": "Johansson",
@@ -57,9 +68,11 @@
         "streetAddress": "Drottninggatan 22",
         "postalCode": "553 43",
         "phone": "0725447894",
-        "isATeacher": false
+        "isATeacher": false,
+        "password": "Password!"
     },
     {
+        "username": "markvi",
         "email": "hej@tjena.com",
         "firstName": "Marianne",
         "lastName": "Kvist",
@@ -67,6 +80,7 @@
         "streetAddress": "Grännavägen 132",
         "postalCode": "553 43",
         "phone": "0725447894",
-        "isATeacher": false
+        "isATeacher": false,
+        "password": "Password!"
     }
 ]

@@ -36,7 +36,7 @@ public class ClassroomAdminController : Controller
                 // typar om min projicering till en IList eftersom min model per automatik vill ta emot en IEnumerable
             }).ToList();
 
-            return View("Index", classrooms);
+            return View("Index", model);
         }
         catch (Exception ex)
         {
