@@ -8,15 +8,15 @@ namespace WestcoastEducation.Web.Controllers;
 [Route("useradmin")]
 public class UserAdminController : Controller
 {
-    private readonly IUserRepository _repo;
-    public UserAdminController(IUserRepository repo)
+    private readonly IUnitOfWork _unitOfWork;
+    public UserAdminController(IUnitOfWork unitOfWork)
     {
-        _repo = repo;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IActionResult> Index()
     {
-        var result = await _repo.ListAllAsync();
+        var result = await _unitOfWork.UserRepository.ListAllAsync();
         var users = result.Select(u => new UserListViewModel
         {
             UserId = u.UserId,
@@ -37,9 +37,8 @@ public class UserAdminController : Controller
     [Route("details/{userId}")]
     public async Task<IActionResult> Details(int userId)
     {
-        var result = await _repo.FindByIdAsync(userId);
+        var result = await _unitOfWork.UserRepository.FindByIdAsync(userId);
 
-        //kontrollerar att användaren existerar
         if (result is null) return View(nameof(Index));
 
         var user = new UserListViewModel()
@@ -78,12 +77,8 @@ public class UserAdminController : Controller
             // tittar på om det som kommer in stämmer överrens med kraven i UserPostViewModel
             if (!ModelState.IsValid) return View("Create", user);
 
-            // söker efter personnummer lika med det som kommer in i anropet
-            // var exists = await _context.Users.SingleOrDefaultAsync(
-            //     u => u.SocialSecurityNumber.Trim().ToLower() == user.SocialSecurityNumber.Trim().ToLower());
-
             // skapar ett felmeddelande ifall E-postadressen redan finns
-            if (await _repo.FindByEmailAsync(user.Email) is not null)
+            if (await _unitOfWork.UserRepository.FindByEmailAsync(user.Email) is not null)
             {
                 var error = new ErrorModel
                 {
@@ -113,10 +108,10 @@ public class UserAdminController : Controller
             // Om allt går bra, inga fel inträffar...
 
             // lägg upp användaren i minnet
-            if (await _repo.AddAsync(userToAdd))
+            if (await _unitOfWork.UserRepository.AddAsync(userToAdd))
             {
                 //spara ner det i databasen
-                if (await _repo.SaveAsync())
+                if (await _unitOfWork.Complete())
                 {
                     return RedirectToAction(nameof(Index));
                 }
@@ -134,7 +129,7 @@ public class UserAdminController : Controller
     [HttpGet("edit/{userId}")]
     public async Task<IActionResult> Edit(int userId)
     {
-        var result = await _repo.FindByIdAsync(userId);
+        var result = await _unitOfWork.UserRepository.FindByIdAsync(userId);
 
         if (result is null)
         {
@@ -171,7 +166,7 @@ public class UserAdminController : Controller
             if (!ModelState.IsValid) return View("Edit", user);
 
             //om vår modell är giltig då hämtar vi vår användare från databasen med Id som vi får in i vårt anrop 
-            var userToUpdate = await _repo.FindByIdAsync(userId);
+            var userToUpdate = await _unitOfWork.UserRepository.FindByIdAsync(userId);
 
             //om jag inte fick den av någon orsak då skickar jag iväg en ny felmodell 
             if (userToUpdate is null)
@@ -198,10 +193,10 @@ public class UserAdminController : Controller
             // userToUpdate.Password = user.Password;
 
             //försök att göra en UpdateAsync för att spara i minnet 
-            if (await _repo.UpdateAsync(userToUpdate))
+            if (await _unitOfWork.UserRepository.UpdateAsync(userToUpdate))
             {
                 //försöker spara till databasen 
-                if (await _repo.SaveAsync())
+                if (await _unitOfWork.Complete())
                 {
                     //om sant så skickas man vidare till Index sidan 
                     return RedirectToAction(nameof(Index));
@@ -231,17 +226,17 @@ public class UserAdminController : Controller
         try
         {
             //letar upp användaren som vi ska ta bort 
-            var userToDelete = await _repo.FindByIdAsync(userId);
+            var userToDelete = await _unitOfWork.UserRepository.FindByIdAsync(userId);
 
             // gör samma kontroll igen, om användaren inte fanns så retuneras Index istället för Error-sida 
             if (userToDelete is null) return RedirectToAction(nameof(Index));
 
             //annars gör ett försök att lägga användaren i Delete-kö i Changetracking och går det bra får man tillabka true
-            if (await _repo.DeleteAsync(userToDelete))
+            if (await _unitOfWork.UserRepository.DeleteAsync(userToDelete))
 
             {
                 //går det bra skicka alla ändringar till datrabasenm 
-                if (await _repo.SaveAsync())
+                if (await _unitOfWork.Complete())
                 {
                     //tillsut gå tillbaka itill Index 
                     return RedirectToAction(nameof(Index));

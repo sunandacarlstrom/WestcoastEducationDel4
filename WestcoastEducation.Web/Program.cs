@@ -14,6 +14,8 @@ options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
 // Add Dependency Injection
 builder.Services.AddScoped<IClassroomRepository, ClassroomRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllersWithViews();
 

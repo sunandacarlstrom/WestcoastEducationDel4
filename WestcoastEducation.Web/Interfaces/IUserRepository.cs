@@ -2,13 +2,8 @@ using WestcoastEducation.Web.Models;
 
 namespace WestcoastEducation.Web.Interfaces;
 
-public interface IUserRepository
+//här sätter jag upp metoder som ska jobba mot databasen 
+public interface IUserRepository : IRepository<UserModel>
 {
-    Task<IList<UserModel>> ListAllAsync();
-    Task<UserModel?> FindByIdAsync(int id);
     Task<UserModel?> FindByEmailAsync(string mail);
-    Task<bool> AddAsync(UserModel user);
-    Task<bool> UpdateAsync(UserModel user);
-    Task<bool> DeleteAsync(UserModel user);
-    Task<bool> SaveAsync();
 }

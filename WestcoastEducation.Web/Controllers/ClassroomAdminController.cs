@@ -8,18 +8,18 @@ namespace WestcoastEducation.Web.Controllers;
 [Route("classroomadmin")]
 public class ClassroomAdminController : Controller
 {
-    private readonly IClassroomRepository _repo;
-    public ClassroomAdminController(IClassroomRepository repo)
+    private readonly IUnitOfWork _unitOfWork;
+    public ClassroomAdminController(IUnitOfWork unitOfWork)
     {
-        _repo = repo;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IActionResult> Index()
     {
         try
         {
-            // går direkt till mitt repository(repo) och hittar rätt metod 
-            var classrooms = await _repo.ListAllAsync();
+            // går direkt till UnitOfWork och hittar rätt metod 
+            var classrooms = await _unitOfWork.ClassroomRepository.ListAllAsync(); 
 
             // här görs en projicering med hjälp av LINQ, dvs. jag vill ta all data som finns i ClassroomModel och gör ett nytt objekt
             // för varje kurs i den listan kommer det ske en intern loop och skapar ett nytt ClassroomListViewModel
@@ -67,8 +67,8 @@ public class ClassroomAdminController : Controller
             // skriver ut felmeddelandet direkt i vyn med hjälp av dekorations attributen i ClassroomPostViewModel
             if (!ModelState.IsValid) return View("Create", classroom);
 
-            // söker efter ett kursnummer lika med det som kommer in i anropet via mitt repo
-            var exists = await _repo.FindByNumberAsync(classroom.Number);
+            // söker efter ett kursnummer lika med det som kommer in i anropet via mitt UnitOfWork
+            var exists = await _unitOfWork.ClassroomRepository.FindByNumberAsync(classroom.Number);
 
             // kontrollerar om detta nummer redan existerar
             if (exists is not null)
@@ -95,11 +95,11 @@ public class ClassroomAdminController : Controller
                 IsOnDistance = classroom.IsOnDistance,
             };
 
-            // lägg upp kursen i minnet via mitt repo
-            if (await _repo.AddAsync(classrooomToAdd))
+            // lägg upp kursen i minnet via mitt UnitOfWork
+            if (await _unitOfWork.ClassroomRepository.AddAsync(classrooomToAdd))
             {
-                // spara ner i databas via mitt repo
-                if (await _repo.SaveAsync())
+                // spara ner i databas via mitt UnitOfWork
+                if (await _unitOfWork.Complete())
                 {
                     // Om allt går bra, inga fel inträffar...
                     return RedirectToAction(nameof(Index));
@@ -134,8 +134,8 @@ public class ClassroomAdminController : Controller
         try
         {
             // får tillbaka en kurs och skicka till en vy
-            // här vill jag alltså få tag i en kurs med Id som är lika med det som kommer in i metodanropet via mitt repo
-            var result = await _repo.FindByIdAsync(classroomId);
+            // här vill jag alltså få tag i en kurs med Id som är lika med det som kommer in i metodanropet via mitt UnitOfWork
+            var result = await _unitOfWork.ClassroomRepository.FindByIdAsync(classroomId);
 
             // kontrollerar om jag inte hittar kursen så skickas ett felmeddelande ut 
             if (result is null)
@@ -185,7 +185,7 @@ public class ClassroomAdminController : Controller
             if (!ModelState.IsValid) return View("Edit", classroom);
 
             // vara säker på att kursen jag vill redigera/uppdatera verkligen finns i Changetracking listan
-            var classroomToUpdate = await _repo.FindByIdAsync(classroomId);
+            var classroomToUpdate = await _unitOfWork.ClassroomRepository.FindByIdAsync(classroomId);
 
             if (classroomToUpdate is null) return RedirectToAction(nameof(Index));
 
@@ -196,11 +196,11 @@ public class ClassroomAdminController : Controller
             classroomToUpdate.End = classroom.End;
 
             //uppdatera en kurs via ef 
-            if (await _repo.UpdateAsync(classroomToUpdate))
+            if (await _unitOfWork.ClassroomRepository.UpdateAsync(classroomToUpdate))
             {
                 // Om allt går bra...
-                // sparas det ner i databas (alla ändringar på en o samma gång via _repo)
-                if (await _repo.SaveAsync())
+                // sparas det ner i databas (alla ändringar på en o samma gång)
+                if (await _unitOfWork.Complete())
                 {
                     return RedirectToAction(nameof(Index));
                 }
@@ -231,16 +231,16 @@ public class ClassroomAdminController : Controller
     {
         try
         {
-            //hämta in kursen som jag vill radera via mitt repo
-            var classroomToDelete = await _repo.FindByIdAsync(classroomId);
+            //hämta in kursen som jag vill radera via mitt UnitOfWork
+            var classroomToDelete = await _unitOfWork.ClassroomRepository.FindByIdAsync(classroomId);
 
             if (classroomToDelete is null) return RedirectToAction(nameof(Index));
 
             // radera kursen
-            if (await _repo.DeleteAsync(classroomToDelete))
+            if (await _unitOfWork.ClassroomRepository.DeleteAsync(classroomToDelete))
             {
                 // spara ner i databas (alla ändringar på en o samma gång)
-                if (await _repo.SaveAsync())
+                if (await _unitOfWork.Complete())
                 {
                     return RedirectToAction(nameof(Index));
                 }
