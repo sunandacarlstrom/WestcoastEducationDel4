@@ -17,4 +17,18 @@
         </li>
     </ul>
 
+    <ul class="courses-details-container">
+        <li class="course-detail">
+            <label asp-for="Content"></label>
+        </li>
+        <li class="course-detail">
+            <ul>
+                @foreach (string content in Model.GetContentList)
+                {
+                    <li>@content</li>
+                }
+            </ul>
+        </li>
+    </ul>
+
 </article>

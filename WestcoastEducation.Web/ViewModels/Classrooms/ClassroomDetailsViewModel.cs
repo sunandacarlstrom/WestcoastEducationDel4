@@ -20,6 +20,14 @@ public class ClassroomDetailsViewModel
     [DisplayName("Kursinnehåll")]
 
     public string Content { get; set; } = "";
+    public string[] GetContentList
+    {
+        get
+        {
+            string[] contentList = Content.Split('|');
+            return contentList;
+        }
+    }
 
     [DisplayName("Startdatum")]
 

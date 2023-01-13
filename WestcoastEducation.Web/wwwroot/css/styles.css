@@ -203,18 +203,16 @@ button a {
 }
 
 .courses-details-container {
-    background-color: red;
     display: flex;
     flex-direction: column;
     width: 30rem;
     gap: 10px;
+    margin-bottom: 3rem;
 }
 
 .course-detail {
-    background-color: blue;
     display: flex;
     justify-content: space-between;
-    text-align: left;
 }
 
 .course-detail > * {

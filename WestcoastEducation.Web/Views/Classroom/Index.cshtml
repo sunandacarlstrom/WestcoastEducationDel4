@@ -10,10 +10,9 @@
         <div class="content-container">
             @foreach (var classroom in Model)
             {
-
                 <div class="content">
-                    <a asp-action="details" asp-route-classroomId=@classroom.ClassroomId>@classroom.Name -
-                        @classroom.Content</a>
+                    <a asp-action="details" asp-route-classroomId=@classroom.ClassroomId>@classroom.Number -
+                        @classroom.Name</a>
                 </div>
             }
         </div>
