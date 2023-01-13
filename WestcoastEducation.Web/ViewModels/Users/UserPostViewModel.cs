@@ -43,7 +43,7 @@ public class UserPostViewModel
     [DisplayName("Är användaren en lärare?")]
     public bool IsATeacher { get; set; } = false;
 
-    [Required(ErrorMessage = "Ett standard lösenord är obligatoriskt")]
+    [Required(ErrorMessage = "Ett lösenord är obligatoriskt")]
     [DisplayName("Temporärt lösenord")]
     public string Password { get; set; } = "";
 }

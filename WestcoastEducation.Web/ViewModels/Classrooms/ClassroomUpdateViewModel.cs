@@ -21,6 +21,7 @@ public class ClassroomUpdateViewModel
     [DisplayName("Kurstitel")]
     public string Title { get; set; } = "";
 
+    [Required(ErrorMessage = "Kursinnehåll är obligatoriskt")]
     [DisplayName("Kursinnehåll (separera med '|')")]
     public string Content { get; set; } = "";
 
