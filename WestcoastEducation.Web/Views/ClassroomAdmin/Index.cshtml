@@ -30,28 +30,28 @@
             <tbody>
                 @foreach (var classroom in Model)
                 {
-                        <tr>
-                            <td>
-                                <a class="edit-icon" asp-action="Edit" asp-controller="ClassroomAdmin"
+                    <tr>
+                        <td>
+                            <a class="edit-icon" asp-action="Edit" asp-controller="ClassroomAdmin"
                             asp-route-classroomId=@classroom.ClassroomId>
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </a>
-                            </td>
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                        </td>
 
-                            <td>@classroom.ClassroomId</td>
-                            <td>@classroom.Number</td>
-                            <td>@classroom.Name</td>
-                            <td>@classroom.Title</td>
-                            <td>@classroom.Start.ToString("yyyy-MM-dd")</td>
-                            <td>@classroom.End.ToString("yyyy-MM-dd")</td>
-                            <td>@classroom.Length.ToString("dd") dagar</td>
+                        <td>@classroom.ClassroomId</td>
+                        <td>@classroom.Number</td>
+                        <td>@classroom.Name</td>
+                        <td>@classroom.Title</td>
+                        <td>@classroom.Start.ToString("yyyy-MM-dd")</td>
+                        <td>@classroom.End.ToString("yyyy-MM-dd")</td>
+                        <td>@classroom.Length.ToString("dd") dagar</td>
 
-                            <td>
-                                <a class="delete-icon" asp-action="Delete" asp-controller="ClassroomAdmin"
+                        <td>
+                            <a class="delete-icon" asp-action="Delete" asp-controller="ClassroomAdmin"
                             asp-route-classroomId=@classroom.ClassroomId>
-                                    <i class="fa-solid fa-trash-can"></i></a>
-                            </td>
-                        </tr>
+                                <i class="fa-solid fa-trash-can"></i></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
             <tfoot>

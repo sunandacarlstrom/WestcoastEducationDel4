@@ -18,7 +18,7 @@ public class ClassroomPostViewModel
     [DisplayName("Kurstitel")]
     public string Title { get; set; } = "";
 
-    [DisplayName("Kursinnehåll")]
+    [DisplayName("Kursinnehåll (separera med '|')")]
     public string Content { get; set; } = "";
 
     [Required(ErrorMessage = "Startdatum är obligatoriskt")]

@@ -27,6 +27,10 @@ ul {
     list-style: none;
 }
 
+.course-detail ul {
+    list-style: square;
+}
+
 button {
     background-color: var(--light-color);
     padding: 0.4rem;

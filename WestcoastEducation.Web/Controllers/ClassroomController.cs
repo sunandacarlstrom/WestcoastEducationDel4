@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WestcoastEducation.Web.Data;
 using WestcoastEducation.Web.Interfaces;
 using WestcoastEducation.Web.Models;
 using WestcoastEducation.Web.ViewModels.Classrooms;
@@ -72,8 +70,7 @@ public class ClassroomController : Controller
                 Start = result.Start,
                 End = result.End,
                 IsOnDistance = result.IsOnDistance
-                // typar om min projicering till en IList eftersom min model per automatik vill ta emot en IEnumerable
-            }; 
+            };
 
             return View("Details", model);
         }
