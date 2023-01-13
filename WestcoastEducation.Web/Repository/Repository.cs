@@ -51,12 +51,6 @@ public class Repository<T> : IRepository<T> where T : class
         return await _entity.ToListAsync();
     }
 
-    public async Task<bool> SaveAsync()
-    {
-        // P.S. alla förändringar som man gör oavsett tabell kommer att skickas ner till databasen
-        return await _context.SaveChangesAsync() > 0;
-    }
-
     public Task<bool> UpdateAsync(T entity)
     {
         try

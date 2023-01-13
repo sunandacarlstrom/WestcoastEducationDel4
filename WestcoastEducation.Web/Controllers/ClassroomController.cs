@@ -8,18 +8,18 @@ namespace WestcoastEducation.Web.Controllers;
 [Route("classroom")]
 public class ClassroomController : Controller
 {
-    private readonly IClassroomRepository _repo;
-    public ClassroomController(IClassroomRepository repo)
+    private readonly IUnitOfWork _unitOfWork;
+    public ClassroomController(IUnitOfWork unitOfWork)
     {
-        _repo = repo;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IActionResult> Index()
     {
         try
         {
-            // går direkt till mitt repository(repo) och hittar rätt metod 
-            var classrooms = await _repo.ListAllAsync();
+            // går direkt till UnitOfWork och hittar rätt metod 
+            var classrooms = await _unitOfWork.ClassroomRepository.ListAllAsync();
 
             // här görs en projicering med hjälp av LINQ, dvs. jag vill ta all data som finns i ClassroomModel och gör ett nytt objekt
             // för varje kurs i den listan kommer det ske en intern loop och skapar ett nytt ClassroomListViewModel
@@ -55,8 +55,8 @@ public class ClassroomController : Controller
     {
         try
         {
-            // går direkt till mitt repository(repo) och hittar rätt metod 
-            var result = await _repo.FindByIdAsync(classroomId);
+            // går direkt till UnitOfWork och hittar rätt metod 
+            var result = await _unitOfWork.ClassroomRepository.FindByIdAsync(classroomId);
 
             // här görs en projicering med hjälp av LINQ, dvs. jag vill ta all data som finns i ClassroomModel och gör ett nytt objekt
             // för varje kurs i den listan kommer det ske en intern loop och skapar ett nytt ClassroomListViewModel
