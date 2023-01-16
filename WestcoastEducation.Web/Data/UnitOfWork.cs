@@ -14,8 +14,6 @@ public class UnitOfWork : IUnitOfWork
     // delegerar över WestcoastEducationContext till mina repositories
     public IClassroomRepository ClassroomRepository => new ClassroomRepository(_context);
 
-    public IUserRepository UserRepository => new UserRepository(_context);
-
     public async Task<bool> Complete()
     {
         return await _context.SaveChangesAsync() > 0;

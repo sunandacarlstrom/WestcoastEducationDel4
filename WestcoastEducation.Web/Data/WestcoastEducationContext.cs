@@ -1,13 +1,13 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WestcoastEducation.Web.Models;
 
 namespace WestcoastEducation.Web.Data
 {
-    public class WestcoastEducationContext : DbContext
+    public class WestcoastEducationContext : IdentityDbContext
     {
         // Skapar kopplingen mellan min databas och mina klasser
         public DbSet<ClassroomModel> Classrooms => Set<ClassroomModel>();
-        public DbSet<UserModel> Users => Set<UserModel>();
 
         public WestcoastEducationContext(DbContextOptions options) : base(options) { }
     }

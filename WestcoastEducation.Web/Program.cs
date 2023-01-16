@@ -13,7 +13,6 @@ options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
 
 // Add Dependency Injection
 builder.Services.AddScoped<IClassroomRepository, ClassroomRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -30,7 +29,6 @@ try
     var context = services.GetRequiredService<WestcoastEducationContext>();
     await context.Database.MigrateAsync();
     await SeedData.LoadClassroomData(context);
-    await SeedData.LoadUserData(context);
 }
 
 catch (Exception ex)
