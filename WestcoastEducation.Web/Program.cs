@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WestcoastEducation.Web.Data;
 using WestcoastEducation.Web.Interfaces;
@@ -10,6 +11,27 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<WestcoastEducationContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
 );
+
+// Set up Identity to use cookies and our westcoastcars context... 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+    // options.Password.RequireLowercase = true; 
+    // options.Password.RequireUppercase = true;
+
+    options.Lockout.MaxFailedAccessAttempts = 5;
+
+    options.User.RequireUniqueEmail = true;
+
+}).AddEntityFrameworkStores<WestcoastEducationContext>();
+
+// Configure cookies...
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/account/login";
+});
 
 // Add Dependency Injection
 builder.Services.AddScoped<IClassroomRepository, ClassroomRepository>();
