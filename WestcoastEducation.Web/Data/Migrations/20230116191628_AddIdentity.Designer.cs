@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WestcoastEducation.Web.Data;
 
@@ -10,9 +11,11 @@ using WestcoastEducation.Web.Data;
 namespace WestcoastEducation.Web.Data.Migrations
 {
     [DbContext(typeof(WestcoastEducationContext))]
-    partial class WestcoastEducationContextModelSnapshot : ModelSnapshot
+    [Migration("20230116191628_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
