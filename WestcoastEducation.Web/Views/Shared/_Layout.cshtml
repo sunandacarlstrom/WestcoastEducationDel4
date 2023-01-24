@@ -44,9 +44,9 @@
         </nav>
     </header>
     <main>
-        <section class="offer-container">
-            @await Html.PartialAsync("_OnDemandOffer")
-        </section>
+        @* skapar en dynamisk sektion som vi kan använda på specifika sidor *@
+        @RenderSection("OnDemandOffer", false)
+
         @RenderBody()
     </main>
 </body>
