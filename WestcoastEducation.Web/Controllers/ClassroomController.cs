@@ -74,11 +74,12 @@ public class ClassroomController : Controller
 
             return View("Details", model);
         }
+
         catch (Exception ex)
         {
             var error = new ErrorModel
             {
-                ErrorTitle = "Ett fel har inträffat",
+                ErrorTitle = "Ett oväntat fel har inträffat",
                 ErrorMessage = ex.Message
             };
 
