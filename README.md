@@ -1,5 +1,7 @@
-# Databas Sqlite för Westcoast Education
+# Databas Sqlite | Westcoast Education
 
-### BONUS: Hantera Authentication & Authorization för min första mvc-applikation. Ett fiktivt projekt under namnet Westcoast Education (WE).
+## Min första mvc-applikation. Ett fiktivt projekt under namnet Westcoast Education (WE).
 
-I denna delen har jag implementerat  Identity biblioteket. Jag har satt upp en databas för lagring av användare. Jag har också konfigurerat min applikation för verifiering av användare med cookies. Till sist, även lagt till logik och vyer för att skapa samt använda roller.
+### BONUS: Hantera Authentication & Authorization 
+
+I denna del av projektet har jag implementerat Identity biblioteket. Jag har satt upp en databas för lagring av användare. Jag har också konfigurerat min applikation för verifiering av användare med cookies. Till sist, även lagt till logik och vyer för att skapa samt använda roller.
