@@ -5,7 +5,7 @@
 }
 
 <article class="page-centered">
-    <form asp-action="login">
+    <form asp-action="login" asp-route-returnurl="@ViewBag.returnUrl">
         <div class="card">
             <h1 class="card-header">Logga In</h1>
             <div class="card-body">

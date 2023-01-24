@@ -18,15 +18,21 @@ public class AccountController : Controller
         _userManager = userManager;
     }
 
-    [HttpGet("login")]
-    public IActionResult Login()
+    [HttpGet("{returnUrl}")]
+    // Denna metod förväntar sig att vi tar in login? = frågesträng = [FromQuery] men också string returnUrl
+    public IActionResult Login([FromQuery] string returnUrl)
     {
+        // om returnUrl är null då dirigeras användaren till classroom-sidan (standard URL:en)
+        if (returnUrl is null) returnUrl = "/classroom";
+        // som ta med returnUrl i min ViewBag
+        ViewBag.returnUrl = returnUrl;
+
         var model = new LoginViewModel();
         return View("Login", model);
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginViewModel model)
+    public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
     {
         if (!ModelState.IsValid) return View(model);
 
@@ -36,7 +42,7 @@ public class AccountController : Controller
             UserName = model.UserName
         };
 
-        // kapsla allting i try-catch för att fånga fel som kan uppstå 
+        // Viktigt att kapsla in med try-catch för att fånga fel som kan uppstå 
         try
         {
             // Vill ej att Cookies ska övereleva när man stänger ner wenbbläsaren - svar nej (false)
@@ -48,7 +54,9 @@ public class AccountController : Controller
             // retunerar till rätt vy 
             if (result.Succeeded)
             {
-                return RedirectToRoute(new { controller = "classroom", Action = "Index" });
+                // return RedirectToRoute(new { controller = "classroom", Action = "Index" });
+                // Istället för att skicka användaren till en fördefinerad sida så vill jag dynamiskt kunna skicka användaren till den sida som hen vill komma åt
+                return Redirect(returnUrl);
             }
             // Om det ej går bra.. 
             // kan beror på att det inte rä tillåtet, något fel 
@@ -95,7 +103,7 @@ public class AccountController : Controller
 
     // Anrop för att kunna spara ner en ny användare
     [HttpPost("register")]
-    // P.S. denna metod kommunicerar asynkront med Identity biblioteket för att kunna spara ner användaren asynkront till databasen 
+    // Denna metod tar emot det inmatade formuläret och sparar ner detta (användaren) asynkront till databasen 
     public async Task<IActionResult> Register(RegisterUserViewModel model)
     {
         // titta så att modelstate inte innehåller några fel, annars retuneras vyn igen och jag skickar med modellen där felmeddelanden finns
@@ -140,9 +148,11 @@ public class AccountController : Controller
     [HttpGet("logout")]
     public async Task<IActionResult> Logout()
     {
+        // tala om för SignInManager att göra en SignOutAsync (logga ut)
         await _signInManager.SignOutAsync();
 
-        // vad ska hända när jag trycker på knappen logga ut
+        // vad ska hända när jag trycker på knappen logga ut...
+        // användaren ska då dirigeras om till Home-controller till metoden Index
         return RedirectToRoute(new { controller = "Home", action = "Index" });
     }
 }
