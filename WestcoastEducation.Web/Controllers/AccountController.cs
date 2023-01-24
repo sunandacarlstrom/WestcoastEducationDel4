@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WestcoastEducation.Web.Models;
 using WestcoastEducation.Web.ViewModels.Account;
+using WestcoastEducation.Web.ViewModels.Account.Admin;
 
 namespace WestcoastEducation.Web.Controllers;
 
@@ -10,11 +11,16 @@ public class AccountController : Controller
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
     // skapar en constructor för att göra det möjligt att hantera användare genom att lägga till två klasser från Identity biblioteket 
-    public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public AccountController(
+        UserManager<IdentityUser> userManager,
+        SignInManager<IdentityUser> signInManager,
+        RoleManager<IdentityRole> roleManager)
     {
         _signInManager = signInManager;
+        _roleManager = roleManager;
         _userManager = userManager;
     }
 
@@ -145,6 +151,43 @@ public class AccountController : Controller
         // då kan jag retunerar Register som är fylld med felmeddelanden
         return View("Register", model);
     }
+
+    [HttpGet("admin/roles")]
+    public IActionResult CreateRole()
+    {
+        // skapa en ny model som är min nya RoleViewModel
+        var model = new RoleViewModel();
+
+        // retunerar en ny vy
+        return View("CreateRole", model);
+    }
+
+    [HttpPost("admin/roles")]
+    public async Task<IActionResult> CreateRole(RoleViewModel model)
+    {
+        if (!ModelState.IsValid) return View("CreateRole", model);
+
+        // Här kan man skicka in namnet på rollen direkt
+        var role = new IdentityRole(model.RoleName!);
+
+        // anrop för att lägga till min nya roll
+        var result = await _roleManager.CreateAsync(role);
+
+        // Om allt går bra...
+        // ska man kunna fortsätta mata in rollerna en efter en 
+        if (result.Succeeded) RedirectToAction(nameof(CreateRole));
+
+        // Om det inte går bra... 
+        // listas alla felmeddelanden 
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError("CreateRole", error.Description);
+        }
+
+        // retunerar en ny vy 
+        return View("CreateRole", model);
+    }
+
     [HttpGet("logout")]
     public async Task<IActionResult> Logout()
     {
