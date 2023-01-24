@@ -200,6 +200,11 @@ button a {
     margin-bottom: 0.5rem;
 }
 
+.error-message {
+    text-align: center;
+    padding: 1rem 0;
+}
+
 .error {
     font-size: smaller;
     color: var(--error-text);
@@ -221,4 +226,10 @@ button a {
 
 .course-detail > * {
     flex: 1;
+}
+
+.highligted-link a {
+    font-weight: 800;
+    color: var(--secondary-color);
+    text-decoration: underline;
 }
