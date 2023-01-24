@@ -7,7 +7,7 @@
 <article class="page-centered">
     @* P.S. Behöver ej skriva ut asp-controller då denna kommer från AccountControlelr och ska tillbaka dit. Men jag gör
         det ändå för att förtydliga! *@
-    <form asp-action="register" asp-controller="AccountController">
+    <form asp-action="register" asp-controller="Account">
         <div class="card">
             <h1 class="card-header">Registrera dig!</h1>
             <div class="card-body">
@@ -37,6 +37,7 @@
                     Avbryt
                 </a>
             </div>
+            <div class="error-message error" asp-validation-summary="All"></div>
         </div>
     </form>
 
