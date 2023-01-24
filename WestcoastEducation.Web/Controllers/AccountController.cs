@@ -133,8 +133,15 @@ public class AccountController : Controller
         // då vill jag skicka användaren till vyn listningen av kurser 
         if (result.Succeeded)
         {
-            // RedirectToRoute används för att skicka till en actionmetod som finns i en annan Controller än denna 
-            return RedirectToRoute(new { controller = "Classroom", action = "Index" });
+            // AddToRoleAsync innebär att användaren som vi just nu lägger till (registrerar sig) hamnar i rollen "Användare" 
+            result = await _userManager.AddToRoleAsync(user, "Användare");
+
+            // gör en kontroll för säkerhets skull 
+            if (result.Succeeded)
+            {
+                // RedirectToRoute används för att skicka till en actionmetod som finns i en annan Controller än denna 
+                return RedirectToRoute(new { controller = "Classroom", action = "Index" });
+            }
         }
         else
         {
